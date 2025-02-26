@@ -1,0 +1,24 @@
+{
+  "name": "@jhonatan0912/gicons-v2",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite ",
+    "publish": "npm publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite-plugin-vue2": "^2.0.3",
+    "vue": "^2.6.14",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "devDependencies": {
+    "vite": "^4.5.9"
+  }
+}
