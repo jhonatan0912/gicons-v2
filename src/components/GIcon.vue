@@ -1,7 +1,8 @@
 <template>
   <component
-    :is="icons[name]"
+    @click.native="$emit('click', $event)"
     v-bind="$attrs"
+    :is="icons[name]"
     :class="[
       size,
       {
@@ -23,6 +24,7 @@ export default {
     hover: { type: Boolean, default: false },
     active: { type: Boolean, default: false },
     selected: { type: Boolean, default: false },
+    hoverColor: { type: String, default: "--p-secondary-low-shade" },
   },
   computed: {
     icons() {
