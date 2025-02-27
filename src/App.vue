@@ -1,12 +1,20 @@
 <template>
   <div style="display: flex; flex-direction: column; gap: 1rem">
     <div style="display: flex; gap: 1rem">
+      <label for="icon"> Buscar Icono </label>
       <input
+        id="icon"
         style="max-width: 200px"
         type="search"
         placeholder="Search"
         @input="onFilter"
       />
+
+      <label for="color">Color</label>
+      <input id="color" type="text" v-model="color" />
+
+      <label for="hover-color">Hover color</label>
+      <input id="hover-color" type="text" v-model="hoverColor" />
 
       <div>
         <label for="hover">Hover</label>
@@ -32,6 +40,7 @@
         :hover="hover"
         :active="active"
         :selected="selected"
+        :hover-color="hoverColor"
       />
     </div>
   </div>
@@ -51,6 +60,8 @@ export default {
       hover: false,
       active: false,
       selected: false,
+      color: "--p-text-primary",
+      hoverColor: "",
     };
   },
   mounted() {

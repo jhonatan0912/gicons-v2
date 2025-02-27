@@ -4,14 +4,14 @@
       <g clip-path="url(#clip0_15957_40203)">
         <path
           d="M10 6L22 18"
-          stroke="black"
+          stroke="currentColor"
           stroke-width="1.5"
           stroke-miterlimit="10"
           stroke-linecap="round"
         />
         <path
           d="M10 18L22 6"
-          stroke="black"
+          stroke="currentColor"
           stroke-width="1.5"
           stroke-miterlimit="10"
           stroke-linecap="round"

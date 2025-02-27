@@ -6,7 +6,7 @@
         y1="17.75"
         x2="3.75"
         y2="17.75"
-        stroke="#181818"
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
       />
@@ -15,7 +15,7 @@
         y1="11.75"
         x2="3.75"
         y2="11.75"
-        stroke="#181818"
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
       />
@@ -24,7 +24,7 @@
         y1="5.75"
         x2="3.75"
         y2="5.75"
-        stroke="#181818"
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
       />

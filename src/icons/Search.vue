@@ -5,14 +5,14 @@
         cx="11.6062"
         cy="11.3776"
         r="8.98856"
-        stroke="black"
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <path
         d="M17.8579 18.0961L21.3819 21.611"
-        stroke="black"
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
