@@ -1,4 +1,5 @@
 {
+  "buildCommand": "npm run preview",
   "outputDirectory": "demo",
   "routes": [
     { "src": "/.*", "dest": "/index.html" }
