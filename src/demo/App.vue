@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import GIcon from "./components/GIcon.vue";
+import GIcon from "../components/GIcon.vue";
 import icons from "../icons";
 
 export default {

@@ -1,7 +1,7 @@
-import GIcon from "./components/GIcon.vue";
+import GIcon from "../components/GIcon.vue";
 import App from "./App.vue";
 import Vue from "vue";
-import "./styles.css";
+import "../styles.css";
 
 Vue.component("GIcon", GIcon);
 
