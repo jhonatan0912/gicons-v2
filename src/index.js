@@ -1,5 +1,5 @@
 import GIcon from "./components/GIcon.vue";
-import * as icons from "./icons";
+import icons from "./icons";
 import "./styles.css";
 
 const Plugin = {

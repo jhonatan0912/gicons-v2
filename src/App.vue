@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: column; gap: 1rem">
+  <div style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem">
     <div style="display: flex; gap: 1rem">
       <label for="icon"> Buscar Icono </label>
       <input
@@ -38,20 +38,47 @@
       </div>
     </div>
 
-    <div style="display: flex; gap: 1rem; margin-top: 1rem">
-      <GIcon
+    <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
+      <div
+        style="
+          cursor: pointer;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        "
         v-for="(icon, index) in list"
-        @click="oncopy(icon)"
         :key="index"
-        :name="icon"
-        :size="size"
-        :hover="hover"
-        :active="active"
-        :selected="selected"
-        :color="color"
-        :hover-color="hoverColor"
-      />
+        @click="oncopy(icon)"
+      >
+        <GIcon
+          :name="icon"
+          :size="size"
+          :hover="hover"
+          :active="active"
+          :selected="selected"
+          :color="color"
+          :hover-color="hoverColor"
+        />
+        {{ icon }}
+      </div>
     </div>
+
+    <div
+      id="toast"
+      style="
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #333;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 999;
+      "
+    ></div>
   </div>
 </template>
 
@@ -90,6 +117,13 @@ export default {
     },
     oncopy(icon) {
       navigator.clipboard.writeText(icon);
+      const toast = document.getElementById("toast");
+      toast.textContent = `${icon} copied to clipboard`;
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 2000);
     },
   },
 };
