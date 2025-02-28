@@ -9,25 +9,27 @@ Puedes instalar `gicons-v2` usando npm o yarn.
 ### Con npm
 
 ```bash
-npm install gicons-v2
+npm install @jhonatan0912/gicons-v2
 ```
 
+```js
 <template>
   <div>
-    <gicon name="Burger" size="24" color="black" />
-    <gicon name="Search" size="24" color="black" />
+    <GIcon name="Burger" size="24" color="black" />
+    <GIcon name="Search" size="24" color="black" />
   </div>
 </template>
 
 <script>
-import { GIcon } from 'gicons-v2';
+import { GIcon } from "@jhonatan0912/gicons-v2";
 
 export default {
   components: {
-    GIcon
-  }
+    GIcon,
+  },
 };
 </script>
+```
 
 ## Propiedades
 

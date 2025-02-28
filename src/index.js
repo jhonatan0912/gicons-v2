@@ -11,4 +11,4 @@ const Plugin = {
 console.log(Object.keys(icons));
 
 export default Plugin;
-export { GIcon };
+export { GIcon, icons };
