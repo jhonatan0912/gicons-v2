@@ -10,6 +10,12 @@ import Delete2 from "./Delete2.vue";
 import CloseLeft from "./CloseLeft.vue";
 import CloseCenter from "./CloseCenter.vue";
 import CloseRight from "./CloseRight.vue";
+import ArrowGeorDown from "./ArrowGeorDown.vue";
+import ArrowGeorLeft from "./ArrowGeorLeft.vue";
+import ArrowGeorRight from "./ArrowGeorRight.vue";
+import ArrowGeorUp from "./ArrowGeorUp.vue";
+import ArrowTwo from "./ArrowTwo.vue";
+import Filter from "./Filter.vue";
 
 export {
   Burger,
@@ -24,4 +30,10 @@ export {
   CloseLeft,
   CloseCenter,
   CloseRight,
+  ArrowGeorDown,
+  ArrowGeorLeft,
+  ArrowGeorRight,
+  ArrowGeorUp,
+  ArrowTwo,
+  Filter,
 };
