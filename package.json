@@ -10,9 +10,9 @@
   ],
   "scripts": {
     "build": "vite build",
-    "patch": "npm version patch",
-    "minor": "npm version minor",
-    "major": "npm version major",
+    "patch": "npm version patch && npm run build && npm run publish",
+    "minor": "npm version minor && npm run build && npm run publish",
+    "major": "npm version major && npm run build && npm run publish",
     "dev": "vite ",
     "publish": "npm publish --access public"
   },
