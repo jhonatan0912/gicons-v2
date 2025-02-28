@@ -13,7 +13,6 @@
     "minor": "npm version minor && npm run build && npm run publish",
     "major": "npm version major && npm run build && npm run publish",
     "dev": "npx serve demo",
-    "demo": "npx vite demo",
     "build": "vite build",
     "build-demo": "vite build --config vite.demo.config.js",
     "start": "vite preview",
