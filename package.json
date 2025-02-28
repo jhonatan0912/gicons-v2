@@ -1,11 +1,13 @@
 {
   "name": "@jhonatan0912/gicons-v2",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "style":"dist/style.css",
-  "files": ["dist"],
+  "style": "dist/style.css",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "vite build",
     "patch": "npm version patch",
