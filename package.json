@@ -17,8 +17,7 @@
     "build": "vite build",
     "build-demo": "vite build --config vite.demo.config.js",
     "start": "vite preview",
-    "publish": "npm publish --access public",
-    "preview":"vite build --outDir demo"
+    "publish": "npm publish --access public"
   },
   "keywords": [],
   "author": "",
