@@ -17,7 +17,7 @@
   ></component>
 </template>
 <script>
-import * as icons from "../icons";
+import icons from "../icons";
 
 export default {
   name: "GIcon",
@@ -46,10 +46,12 @@ export default {
       }
     },
   },
+  data() {
+    return {
+      icons,
+    };
+  },
   computed: {
-    icons() {
-      return icons;
-    },
     computedColor() {
       if (this.color) {
         return this.color.includes("--")
