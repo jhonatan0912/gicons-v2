@@ -16,6 +16,14 @@ import ArrowGeorRight from "./ArrowGeorRight.vue";
 import ArrowGeorUp from "./ArrowGeorUp.vue";
 import ArrowTwo from "./ArrowTwo.vue";
 import Filter from "./Filter.vue";
+import EyeOff from "./EyeOff.vue";
+import EyeOn from "./EyeOn.vue";
+import Heart from "./Heart.vue";
+import Star from "./Star.vue";
+import Setting from "./Setting.vue";
+import Category from "./Category.vue";
+import CategoryRegular from "./CategoryRegular.vue";
+import Apps from "./Apps.vue";
 
 export {
   Burger,
@@ -36,4 +44,12 @@ export {
   ArrowGeorUp,
   ArrowTwo,
   Filter,
+  EyeOff,
+  EyeOn,
+  Heart,
+  Star,
+  Setting,
+  Category,
+  CategoryRegular,
+  Apps,
 };

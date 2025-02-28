@@ -10,6 +10,14 @@
         @input="onFilter"
       />
 
+      <label>Tamaño</label>
+      <select v-model="size">
+        <option value="xs">xs</option>
+        <option value="sm">sm</option>
+        <option value="md">md</option>
+        <option value="lg">lg</option>
+      </select>
+
       <label for="color">Color</label>
       <input id="color" type="text" v-model="color" />
 
@@ -36,10 +44,11 @@
         @click="oncopy(icon)"
         :key="index"
         :name="icon"
-        size="md"
+        :size="size"
         :hover="hover"
         :active="active"
         :selected="selected"
+        :color="color"
         :hover-color="hoverColor"
       />
     </div>
@@ -60,8 +69,9 @@ export default {
       hover: false,
       active: false,
       selected: false,
-      color: "--p-text-primary",
+      color: "red",
       hoverColor: "",
+      size: "md",
     };
   },
   mounted() {
