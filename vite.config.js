@@ -7,8 +7,10 @@ export default defineConfig({
     lib: {
       entry: "src/index.js",
       name: "GIconsV2",
-      fileName: () => `index.js`,
+      fileName: "index",
     },
+    outDir: "dist",
+    emptyOutDir: true,
     rollupOptions: {
       external: ["vue"],
       output: {
