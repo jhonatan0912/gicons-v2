@@ -13,6 +13,7 @@
     ]"
     :style="{
       color: computedColor,
+      transform: rotate && `rotate(${rotate}deg)`,
     }"
   ></component>
 </template>
@@ -29,6 +30,7 @@ export default {
     selected: { type: Boolean, default: false },
     color: { type: String, default: "--p-text-primary" },
     hoverColor: { type: String, default: "--p-secondary-low-shade" },
+    rotate: { type: Number, default: 0 },
   },
   watch: {
     hoverColor(value) {
