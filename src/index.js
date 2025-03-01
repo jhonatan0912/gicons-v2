@@ -8,4 +8,4 @@ const Plugin = {
 };
 
 export default Plugin;
-export { GIcon, names };
+export { GIcon };
