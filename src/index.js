@@ -1,5 +1,4 @@
 import GIcon from "./components/GIcon.vue";
-import icons from "./icons";
 import "./styles.css";
 
 const Plugin = {
@@ -7,9 +6,6 @@ const Plugin = {
     Vue.component("GIcon", GIcon);
   },
 };
-
-console.log(Object.keys(icons));
-const names = Object.keys(icons);
 
 export default Plugin;
 export { GIcon, names };
