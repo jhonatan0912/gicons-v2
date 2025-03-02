@@ -1,18 +1,22 @@
 # gicons-v2
 
-`gicons-v2` es una librería de íconos vectorizados fácil de integrar en tus proyectos. Permite agregar íconos personalizados y escalables con facilidad.
+`gicons-v2` is a vector icon library that is easy to integrate into your projects. It allows you to add customizable and scalable icons with ease.
 
-## Instalación
+## Installation
 
-Puedes instalar `gicons-v2` usando npm o yarn.
+You can install `gicons-v2` using npm.
 
-### Con npm
+### With npm
 
 ```bash
 npm install @jhonatan0912/gicons-v2
 ```
 
-```js
+## Usage
+
+### Basic Example
+
+```vue
 <template>
   <div>
     <GIcon name="Burger" size="24" color="black" />
@@ -31,20 +35,37 @@ export default {
 </script>
 ```
 
-## Propiedades
+## Props
 
-`gicons-v2` permite varias personalizaciones mediante las siguientes propiedades:
+| Prop    | Type   | Default | Description                                          |
+| ------- | ------ | ------- | ---------------------------------------------------- |
+| `name`  | String | `''`    | Icon name to display (e.g., `"Burger"`, `"Search"`). |
+| `size`  | Number | `24`    | Icon size in pixels.                                 |
+| `color` | String | `''`    | Icon color. Accepts any valid CSS color value.       |
 
-- **`name`**: Nombre del ícono a mostrar (por ejemplo: `"Burger"`, `"Search"`).
-- **`size`**: Tamaño del ícono en píxeles (por defecto: `24`).
-- **`color`**: Color del ícono. Puede ser un valor CSS válido, como `'red'`, `'#FF0000'`, `'rgba(0,0,0,0.5)'`, etc.
+## Contributing
 
-## Contribuciones
+If you want to contribute to `gicons-v2`, please follow these steps:
 
-Si deseas contribuir a gicons-v2, por favor sigue estos pasos:
+1. Fork this repository.
+2. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature-new-feature
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -am 'Add new feature'
+   ```
+4. Push your branch to your fork:
+   ```bash
+   git push origin feature-new-feature
+   ```
+5. Open a Pull Request on the main repository.
 
-Haz un fork de este repositorio.
-Crea una nueva rama para tu funcionalidad (git checkout -b feature-nueva-funcionalidad).
-Realiza tus cambios y haz commit (git commit -am 'Añadir nueva funcionalidad').
-Envía tu rama a tu fork (git push origin feature-nueva-funcionalidad).
-Abre un Pull Request en el repositorio principal.
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+[Repository](https://github.com/jhonatan0912)

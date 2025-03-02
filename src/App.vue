@@ -1,6 +1,8 @@
 <template>
-  <div style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem">
-    <div style="display: flex; gap: 1rem">
+  <div
+    style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem"
+  >
+    <div style="display: flex; gap: 0.5rem">
       <label for="icon"> Buscar Icono </label>
       <input
         id="icon"
@@ -18,21 +20,25 @@
         <option value="lg">lg</option>
       </select>
 
-      <label for="color">Color</label>
-      <input id="color" type="text" v-model="color" />
+      <div style="display: flex; gap: 0.5rem">
+        <label for="color">Color</label>
+        <input id="color" type="text" v-model="color" />
+      </div>
 
-      <label for="hover-color">Hover color</label>
-      <input id="hover-color" type="text" v-model="hoverColor" />
+      <div style="display: flex; gap: 0.5rem">
+        <label for="hover-color">Hover color</label>
+        <input id="hover-color" type="text" v-model="hoverColor" />
+      </div>
 
-      <div>
+      <div style="display: flex; gap: 0.5rem">
         <label for="hover">Hover</label>
         <input id="hover" type="checkbox" v-model="hover" />
       </div>
-      <div>
+      <div style="display: flex; gap: 0.5rem">
         <label for="active">Active</label>
         <input id="active" type="checkbox" v-model="active" />
       </div>
-      <div>
+      <div style="display: flex; gap: 0.5rem">
         <label for="selected">Selected</label>
         <input id="selected" type="checkbox" v-model="selected" />
       </div>
@@ -46,7 +52,7 @@
           padding: 1rem;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 0.5rem;
         "
         v-for="(icon, index) in list"
         :key="index"

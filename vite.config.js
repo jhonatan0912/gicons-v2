@@ -17,5 +17,16 @@ export default defineConfig({
         },
       },
     },
+    minify: "terser",
+    terserOptions: {
+      format: {
+        comments: false,
+      },
+      compress: {
+        drop_console: true,
+      },
+    },
+    sourcemap: false,
+    target: "es2015",
   },
 });
