@@ -34,6 +34,7 @@ export default {
   },
   watch: {
     hoverColor(value) {
+      console.log({ value });
       if (value) {
         if (this.hoverColor.includes("--")) {
           this.$el.style.setProperty(
