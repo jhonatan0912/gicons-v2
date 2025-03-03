@@ -11,10 +11,7 @@
         selected: selected,
       },
     ]"
-    :style="{
-      color: computedColor,
-      transform: rotate && `rotate(${rotate}deg)`,
-    }"
+    :style="styleObject"
   ></component>
 </template>
 <script>
@@ -32,36 +29,16 @@ export default {
     hoverColor: { type: String, default: "--p-secondary-low-shade" },
     rotate: { type: Number, default: 0 },
   },
-  watch: {
-    hoverColor(value) {
-      console.log({ value });
-      if (value) {
-        if (this.hoverColor.includes("--")) {
-          this.$el.style.setProperty(
-            "--hover-color",
-            `var(${this.hoverColor})`
-          );
-        } else {
-          this.$el.style.setProperty("--hover-color", this.hoverColor);
-        }
-      } else {
-        this.$el.style.removeProperty("--hover-color");
-      }
-    },
-  },
-  data() {
-    return {
-      icons,
-    };
-  },
+  data: () => ({ icons }),
   computed: {
-    computedColor() {
-      if (this.color) {
-        return this.color.includes("--")
-          ? `var(${this.color}) !important`
-          : `${this.color} !important`;
-      }
-      return "";
+    styleObject() {
+      return {
+        color: this.color.includes("--") ? `var(${this.color})` : this.color,
+        transform: this.rotate ? `rotate(${this.rotate}deg)` : null,
+        "--hover-color": this.hoverColor.includes("--")
+          ? `var(${this.hoverColor})`
+          : this.hoverColor,
+      };
     },
   },
 };
