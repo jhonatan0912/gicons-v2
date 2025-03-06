@@ -53,6 +53,7 @@
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
+          align-items: center;
         "
         v-for="(icon, index) in list"
         :key="index"
@@ -122,7 +123,7 @@ export default {
       );
     },
     oncopy(icon) {
-      navigator.clipboard.writeText(icon);
+      navigator.clipboard.writeText(`<GIcon name="${icon}" />`);
       const toast = document.getElementById("toast");
       toast.textContent = `${icon} copied to clipboard`;
       toast.style.display = "block";
