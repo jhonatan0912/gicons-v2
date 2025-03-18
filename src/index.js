@@ -8,6 +8,6 @@ const Plugin = {
   },
 };
 
-const iconNames = Object.keys(icons);
+const names = Object.keys(icons);
 export default Plugin;
-export { GIcon, iconNames as icons };
+export { GIcon, names };
