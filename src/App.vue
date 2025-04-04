@@ -44,6 +44,8 @@
       </div>
     </div>
 
+    <GEditor initial-content="TEST" />
+
     <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
       <div
         style="
@@ -91,11 +93,13 @@
 
 <script>
 import GIcon from "./components/GIcon.vue";
+import GEditor from "./components/GEditor.vue";
 import icons from "./icons";
 
 export default {
   components: {
     GIcon,
+    GEditor,
   },
   data() {
     return {
