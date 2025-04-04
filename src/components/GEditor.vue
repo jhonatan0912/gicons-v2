@@ -15,21 +15,21 @@
         @click="editor.chain().focus().toggleStrike().run()" />
 
       <!-- Headings -->
-      <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }" title="Heading 1">
         <span class="icon">H1</span>
       </button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }" title="Heading 2">
         <span class="icon">H2</span>
       </button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }" title="Heading 3">
         <span class="icon">H3</span>
       </button>
 
       <!-- Text Alignment -->
-      <button @click="editor.chain().focus().setTextAlign('left').run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().setTextAlign('left').run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" title="Align Left">
         <span class="icon">←</span>
       </button>
@@ -45,7 +45,7 @@
         @click="editor.chain().focus().toggleOrderedList().run()" />
 
       <!-- Block Formatting -->
-      <button @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('blockquote') }" title="Blockquote">
         <span class="icon">" "</span>
       </button>
@@ -56,21 +56,21 @@
       <GIcon name="FileImage" title="Insert Image" hover @click="openImageUpload" />
 
       <!-- Code -->
-      <button @click="editor.chain().focus().toggleCode().run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().toggleCode().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('code') }" title="Inline Code">
         <span class="icon">{{ "</>" }}</span>
       </button>
-      <button @click="editor.chain().focus().toggleCodeBlock().run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().toggleCodeBlock().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('codeBlock') }" title="Code Block">
         <span class="icon">{{ "'</>'" }}</span>
       </button>
 
       <!-- Undo/Redo -->
-      <button @click="editor.chain().focus().undo().run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().undo().run()" class="editor-toolbar-button"
         :disabled="!editor.can().undo()" title="Undo">
         <span class="icon">↩️</span>
       </button>
-      <button @click="editor.chain().focus().redo().run()" class="editor-toolbar-button"
+      <button type="button" @click="editor.chain().focus().redo().run()" class="editor-toolbar-button"
         :disabled="!editor.can().redo()" title="Redo">
         <span class="icon">↪️</span>
       </button>
@@ -126,11 +126,11 @@ export default {
           heading: {
             levels: [1, 2, 3],
           },
-          paragraph: {
-            HTMLAttributes: {
-              class: "g-text--content-1-a",
-            },
-          },
+          // paragraph: {
+          //   HTMLAttributes: {
+          //     class: "g-text--content-1-a",
+          //   },
+          // },
         }),
         Underline,
         ImageWithTools.configure({
@@ -299,7 +299,7 @@ export default {
 
     &-button {
       border: none;
-      background: none;
+      background: red;
     }
   }
 
