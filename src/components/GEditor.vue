@@ -77,15 +77,6 @@
     </div>
 
     <editor-content :editor="editor" class="editor-content" />
-
-    <div v-if="false">
-      <div data-image>
-        <img class="resizable-image" :src="node.attrs.src" :alt="node.attrs.alt" 
-             :style="{ width: node.attrs.width, height: node.attrs.height }">
-        <div data-resize-handle></div>
-      </div>
-    </div>
-
     <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handleImageUpload" />
   </div>
 </template>
@@ -93,39 +84,76 @@
 <script>
 import { Editor, EditorContent } from "@tiptap/vue-2";
 import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import Image from "@tiptap/extension-image";
+import Underline from "@tiptap/extension-underline"; 
+import ImageWithTools from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 
-import GIcon from "./GIcon.vue"
+import GIcon from "./GIcon.vue";
 
 export default {
   components: { EditorContent, GIcon },
+
+  props: {
+    value: {
+      type: String,
+      default: () => `<p class="g-text--content-1-a"></p>`
+    },
+  },
+
   data: () => ({
     editor: null,
     isUploading: false,
-    activeImage: null,
-    startX: 0,
-    startWidth: 0,
-    aspectRatio: 1,
+    resizeData: null,
   }),
+
+  watch: {
+    value: {
+      immediate: true,
+      handler(value) {
+
+        if (this.editor && value !== this.editor.getHTML()) {
+          this.editor.commands.setContent(value, false);
+        }
+      }
+    }
+  },
 
   mounted() {
     this.editor = new Editor({
+      content: this.value,
       extensions: [
-        StarterKit,
+        StarterKit.configure({
+          heading: {
+            levels: [1, 2, 3],
+          },
+          // paragraph: {
+          //   HTMLAttributes: {
+          //     class: "g-text--content-1-a",
+          //   },
+          // },
+        }),
         Underline,
-        Image.configure({
+        ImageWithTools.configure({
           HTMLAttributes: {
             class: "resizable-image",
-            'data-draggable': true,
           },
+          resize: true,
         }),
         TextAlign.configure({
-          types: ['heading', 'paragraph'],
+          types: ["heading", "paragraph"],
+          alignments: ['left', 'center', 'right'],
+          defaultAlignment: 'left',
         }),
       ],
-      // ... rest of your editor config
+      onUpdate: () => {
+
+        const html = this.editor.getHTML();
+
+        this.$emit('update:value', html);
+      },
+      onBlur: () => {
+        this.$emit('update:value', this.editor.getHTML());
+      }
     });
 
     this.setupResizeHandlers();
@@ -135,89 +163,128 @@ export default {
     openImageUpload() {
       this.$refs.fileInput.click();
     },
-    setupResizeHandlers() {
-      document.addEventListener('mousedown', this.handleMouseDown);
-      document.addEventListener('mousemove', this.handleMouseMove);
-      document.addEventListener('mouseup', this.handleMouseUp);
-    },
-
-    handleMouseDown(e) {
-      const handle = e.target.closest('[data-resize-handle]');
-      if (!handle) return;
-
-      const img = handle.closest('.resizable-image');
-      if (!img) return;
-
-      e.preventDefault();
-      
-      this.activeImage = img;
-      this.startX = e.clientX;
-      this.startWidth = parseFloat(img.style.width) || img.offsetWidth;
-      this.aspectRatio = (parseFloat(img.style.width) || img.offsetWidth) / 
-                        (parseFloat(img.style.height) || img.offsetHeight);
-    },
-
-    handleMouseMove(e) {
-      if (!this.activeImage) return;
-
-      const dx = e.clientX - this.startX;
-      const newWidth = Math.max(100, this.startWidth + dx); // Min width 100px
-      const newHeight = newWidth / this.aspectRatio;
-
-      this.activeImage.style.width = `${newWidth}px`;
-      this.activeImage.style.height = `${newHeight}px`;
-    },
-
-    handleMouseUp() {
-      if (!this.activeImage) return;
-      
-      // Update the editor with new dimensions
-      const imgNode = this.activeImage.closest('[data-image]');
-      if (imgNode) {
-        this.editor.commands.updateAttributes('image', {
-          width: this.activeImage.style.width,
-          height: this.activeImage.style.height
-        });
-      }
-
-      this.activeImage = null;
-    },
 
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
 
+      event.target.value = "";
+
+      this.isUploading = true;
+
       const reader = new FileReader();
       reader.onload = (e) => {
+        const base64 = e.target.result;
         const img = new Image();
+        img.src = base64;
         img.onload = () => {
-          const aspectRatio = img.width / img.height;
-          const displayWidth = Math.min(800, img.width); // Limit initial size
-          
-          this.editor.chain().focus().setImage({
-            src: e.target.result,
-            alt: file.name,
-            width: `${displayWidth}px`,
-            height: `${displayWidth / aspectRatio}px`,
-            'data-aspect-ratio': aspectRatio
-          }).run();
+          this.editor
+            .chain()
+            .focus()
+            .setImage({
+              src: base64,
+              alt: file.name,
+              width: `${img.width}px`,
+            })
+            .run();
+          this.isUploading = false;
         };
-        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     },
-    // ... rest of your methods
+
+    setupResizeHandlers() {
+      let animationFrameId = null;
+
+      const onMouseDown = (e) => {
+        const img = e.target.closest(".resizable-image");
+        if (!img || e.button !== 0) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const rect = img.getBoundingClientRect();
+        this.resizeData = {
+          img,
+          startX: e.clientX,
+          startY: e.clientY,
+          startWidth: rect.width,
+          startHeight: rect.height,
+          aspectRatio: rect.width / rect.height,
+        };
+
+        img.classList.add("resizing");
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp, { once: true });
+      };
+
+      const onMouseMove = (e) => {
+        if (!this.resizeData) return;
+
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+
+        animationFrameId = requestAnimationFrame(() => {
+          const { img, startX, startY, startWidth, startHeight, aspectRatio } =
+            this.resizeData;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+
+          let newWidth = Math.max(50, startWidth + dx);
+          let newHeight = Math.max(50, startHeight + dy);
+
+          if (e.shiftKey) {
+            newHeight = newWidth / aspectRatio;
+          }
+
+          img.style.width = `${newWidth}px`;
+          img.style.height = `${newHeight}px`;
+        });
+      };
+
+      const onMouseUp = () => {
+        if (!this.resizeData) return;
+
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+
+        const { img } = this.resizeData;
+        img.classList.remove("resizing");
+
+        this.editor
+          .chain()
+          .focus()
+          .updateAttributes("image", {
+            width: img.style.width,
+            height: img.style.height,
+          })
+          .run();
+
+        this.resizeData = null;
+        document.removeEventListener("mousemove", onMouseMove);
+      };
+
+      document.addEventListener("mousedown", onMouseDown);
+
+      this.$once("hook:beforeDestroy", () => {
+        document.removeEventListener("mousedown", onMouseDown);
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+      });
+    },
   },
 
   beforeDestroy() {
-    document.removeEventListener('mousedown', this.handleMouseDown);
-    document.removeEventListener('mousemove', this.handleMouseMove);
-    document.removeEventListener('mouseup', this.handleMouseUp);
-    if (this.editor) this.editor.destroy();
-  }
-}
+    if (this.editor) {
+      this.editor.destroy();
+    }
+  },
+};
 </script>
-
 <style lang="scss">
 .editor {
   border: 1px solid var(--p-gray-scale-200);
@@ -254,11 +321,20 @@ export default {
   position: relative;
   display: inline-block;
   max-width: 100%;
-  transition: width 0.2s ease;
-  margin: 0.5rem 0;
+  height: auto;
+  transition: width 0.05s linear, height 0.05s linear;
+  cursor: move;
+  touch-action: none;
 }
 
-[data-resize-handle] {
+.resizable-image.resizing {
+  outline: 2px dashed #4299e1;
+  user-select: none;
+  will-change: width, height;
+}
+
+.resizable-image::after {
+  content: "";
   position: absolute;
   right: -8px;
   bottom: -8px;
@@ -269,11 +345,14 @@ export default {
   border-radius: 50%;
   cursor: nwse-resize;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.1s ease;
   z-index: 10;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
 }
 
-.resizable-image:hover [data-resize-handle] {
+.resizable-image:hover::after {
   opacity: 1;
+  pointer-events: auto;
 }
 </style>
