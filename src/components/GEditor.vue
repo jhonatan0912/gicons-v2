@@ -15,16 +15,19 @@
         @click="editor.chain().focus().toggleStrike().run()" />
 
       <!-- Headings -->
-      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }" title="Heading 1">
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
+        class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
+        title="Heading 1">
         <span class="icon">H1</span>
       </button>
-      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }" title="Heading 2">
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
+        class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
+        title="Heading 2">
         <span class="icon">H2</span>
       </button>
-      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }" title="Heading 3">
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
+        class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
+        title="Heading 3">
         <span class="icon">H3</span>
       </button>
 
@@ -77,6 +80,11 @@
     </div>
 
     <editor-content :editor="editor" class="editor-content" />
+
+    <div class="resize-handle" data-resize-handle="bottom-right"></div>
+    <div class="resize-handle" data-resize-handle="bottom-left"></div>
+    <div class="resize-handle" data-resize-handle="top-right"></div>
+    <div class="resize-handle" data-resize-handle="top-left"></div>
     <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handleImageUpload" />
   </div>
 </template>
@@ -84,7 +92,7 @@
 <script>
 import { Editor, EditorContent } from "@tiptap/vue-2";
 import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline"; 
+import Underline from "@tiptap/extension-underline";
 import ImageWithTools from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 
@@ -211,6 +219,7 @@ export default {
           startWidth: rect.width,
           startHeight: rect.height,
           aspectRatio: rect.width / rect.height,
+          edge: e.target.dataset.resizeHandle,
         };
 
         img.classList.add("resizing");
@@ -226,16 +235,39 @@ export default {
         }
 
         animationFrameId = requestAnimationFrame(() => {
-          const { img, startX, startY, startWidth, startHeight, aspectRatio } =
+          const { img, startX, startY, startWidth, startHeight, aspectRatio, edge } =
             this.resizeData;
           const dx = e.clientX - startX;
           const dy = e.clientY - startY;
 
-          let newWidth = Math.max(50, startWidth + dx);
-          let newHeight = Math.max(50, startHeight + dy);
+          let newWidth = startWidth;
+          let newHeight = startHeight;
 
-          if (e.shiftKey) {
-            newHeight = newWidth / aspectRatio;
+          if (!e.shiftKey) {
+            switch (edge) {
+              case 'bottom-right':
+                newWidth = Math.max(50, startWidth + dx);
+                newHeight = newWidth / aspectRatio;
+                break;
+              case 'bottom-left':
+                newWidth = Math.max(50, startWidth - dx);
+                newHeight = newWidth / aspectRatio;
+                break;
+              case 'top-right':
+                newHeight = Math.max(50, startHeight - dy);
+                newWidth = newHeight * aspectRatio;
+                break;
+              case 'top-left':
+                newHeight = Math.max(50, startHeight + dy);
+                newWidth = newHeight * aspectRatio;
+                break;
+              default:
+                newWidth = Math.max(50, startWidth + dx);
+                newHeight = newWidth / aspectRatio;
+            }
+          } else {
+            newWidth = Math.max(50, startWidth + dx);
+            newHeight = Math.max(50, startHeight + dy);
           }
 
           img.style.width = `${newWidth}px`;
@@ -275,7 +307,7 @@ export default {
           cancelAnimationFrame(animationFrameId);
         }
       });
-    },
+    }
   },
 
   beforeDestroy() {
