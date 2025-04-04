@@ -2,7 +2,7 @@
   <div
     style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem"
   >
-    <div style="display: flex; gap: 0.5rem">
+    <!-- <div style="display: flex; gap: 0.5rem">
       <label for="icon"> Buscar Icono </label>
       <input
         id="icon"
@@ -42,11 +42,14 @@
         <label for="selected">Selected</label>
         <input id="selected" type="checkbox" v-model="selected" />
       </div>
+    </div> -->
+
+    <div style="max-width: 400px">
+      <GEditor :modelValue="content" @update:modelValue="content = $event" />
+      <strong>{{ content }}</strong>
     </div>
 
-    <GEditor initial-content="TEST" />
-
-    <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
+    <!-- <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
       <div
         style="
           cursor: pointer;
@@ -87,7 +90,7 @@
         border-radius: 5px;
         z-index: 999;
       "
-    ></div>
+    ></div> -->
   </div>
 </template>
 
@@ -103,6 +106,7 @@ export default {
   },
   data() {
     return {
+      content: "<p>Default Content</p>",
       list: [],
       hover: false,
       active: false,

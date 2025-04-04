@@ -2,166 +2,78 @@
   <div class="editor">
     <div v-if="editor" class="editor-toolbar">
       <!-- Text Formatting -->
-      <GIcon
-        name="Bold3"
-        title="Bold"
-        hover
-        :selected="editor.isActive('bold')"
-        @click="editor.chain().focus().toggleBold().run()"
-      />
+      <GIcon name="Bold3" title="Bold" hover :selected="editor.isActive('bold')"
+        @click="editor.chain().focus().toggleBold().run()" />
 
-      <GIcon
-        name="Italic3"
-        title="Italic"
-        hover
-        :selected="editor.isActive('italic')"
-        @click="editor.chain().focus().toggleItalic().run()"
-      />
+      <GIcon name="Italic3" title="Italic" hover :selected="editor.isActive('italic')"
+        @click="editor.chain().focus().toggleItalic().run()" />
 
-      <GIcon
-        name="Underline"
-        title="Underline"
-        hover
-        :selected="editor.isActive('underline')"
-        @click="editor.chain().focus().toggleUnderline().run()"
-      />
+      <GIcon name="Underline" title="Underline" hover :selected="editor.isActive('underline')"
+        @click="editor.chain().focus().toggleUnderline().run()" />
 
-      <GIcon
-        name="Strikethrough"
-        title="Strikethrough"
-        hover
-        :selected="editor.isActive('strike')"
-        @click="editor.chain().focus().toggleStrike().run()"
-      />
+      <GIcon name="Strikethrough" title="Strikethrough" hover :selected="editor.isActive('strike')"
+        @click="editor.chain().focus().toggleStrike().run()" />
 
       <!-- Headings -->
-      <button
-        @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-        class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
-        title="Heading 1"
-      >
+      <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }" title="Heading 1">
         <span class="icon">H1</span>
       </button>
-      <button
-        @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-        class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
-        title="Heading 2"
-      >
+      <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }" title="Heading 2">
         <span class="icon">H2</span>
       </button>
 
       <!-- Text Alignment -->
-      <button
-        @click="editor.chain().focus().setTextAlign('left').run()"
-        class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
-        title="Align Left"
-      >
+      <button @click="editor.chain().focus().setTextAlign('left').run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" title="Align Left">
         <span class="icon">←</span>
       </button>
-      <GIcon
-        name="TextAlignCenter"
-        title="TextAlignCenter"
-        hover
-        :selected="editor.isActive({ textAlign: 'center' })"
-        @click="editor.chain().focus().setTextAlign('center').run()"
-      />
-      <GIcon
-        name="TextAlignRight"
-        title="TextAlignRight"
-        hover
-        :selected="editor.isActive({ textAlign: 'right' })"
-        @click="editor.chain().focus().setTextAlign('right').run()"
-      />
+      <GIcon name="TextAlignCenter" title="TextAlignCenter" hover :selected="editor.isActive({ textAlign: 'center' })"
+        @click="editor.chain().focus().setTextAlign('center').run()" />
+      <GIcon name="TextAlignRight" title="TextAlignRight" hover :selected="editor.isActive({ textAlign: 'right' })"
+        @click="editor.chain().focus().setTextAlign('right').run()" />
 
       <!-- Lists -->
-      <GIcon
-        name="UnorderedList"
-        title="Bullet List"
-        hover
-        :selected="editor.isActive('bulletList')"
-        @click="editor.chain().focus().toggleBulletList().run()"
-      />
-      <GIcon
-        name="NumberList"
-        title="Numbered List"
-        hover
-        :selected="editor.isActive('orderedList')"
-        @click="editor.chain().focus().toggleOrderedList().run()"
-      />
+      <GIcon name="UnorderedList" title="Bullet List" hover :selected="editor.isActive('bulletList')"
+        @click="editor.chain().focus().toggleBulletList().run()" />
+      <GIcon name="NumberList" title="Numbered List" hover :selected="editor.isActive('orderedList')"
+        @click="editor.chain().focus().toggleOrderedList().run()" />
 
       <!-- Block Formatting -->
-      <button
-        @click="editor.chain().focus().toggleBlockquote().run()"
-        class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('blockquote') }"
-        title="Blockquote"
-      >
+      <button @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive('blockquote') }" title="Blockquote">
         <span class="icon">"</span>
       </button>
 
-      <GIcon
-        name="Substract"
-        title="Horizontal Line"
-        hover
-        @click="editor.chain().focus().setHorizontalRule().run()"
-      />
+      <GIcon name="Substract" title="Horizontal Line" hover @click="editor.chain().focus().setHorizontalRule().run()" />
 
       <!-- Links & Media -->
-      <GIcon
-        name="FileImage"
-        title="Insert Image"
-        hover
-        @click="openImageUpload"
-      />
+      <GIcon name="FileImage" title="Insert Image" hover @click="openImageUpload" />
 
       <!-- Code -->
-      <button
-        @click="editor.chain().focus().toggleCode().run()"
-        class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('code') }"
-        title="Inline Code"
-      >
+      <button @click="editor.chain().focus().toggleCode().run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive('code') }" title="Inline Code">
         <span class="icon">{{ "</>" }}</span>
       </button>
-      <button
-        @click="editor.chain().focus().toggleCodeBlock().run()"
-        class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive('codeBlock') }"
-        title="Code Block"
-      >
-      <span class="icon">{{ "'</>'" }}</span>
+      <button @click="editor.chain().focus().toggleCodeBlock().run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive('codeBlock') }" title="Code Block">
+        <span class="icon">{{ "'</>'" }}</span>
       </button>
 
       <!-- Undo/Redo -->
-      <button
-        @click="editor.chain().focus().undo().run()"
-        class="editor-toolbar-button"
-        :disabled="!editor.can().undo()"
-        title="Undo"
-      >
+      <button @click="editor.chain().focus().undo().run()" class="editor-toolbar-button"
+        :disabled="!editor.can().undo()" title="Undo">
         <span class="icon">↩️</span>
       </button>
-      <button
-        @click="editor.chain().focus().redo().run()"
-        class="editor-toolbar-button"
-        :disabled="!editor.can().redo()"
-        title="Redo"
-      >
+      <button @click="editor.chain().focus().redo().run()" class="editor-toolbar-button"
+        :disabled="!editor.can().redo()" title="Redo">
         <span class="icon">↪️</span>
       </button>
     </div>
 
     <editor-content :editor="editor" class="editor-content" />
-    <input
-      type="file"
-      ref="fileInput"
-      accept="image/*"
-      style="display: none"
-      @change="handleImageUpload"
-    />
+    <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handleImageUpload" />
   </div>
 </template>
 
@@ -176,10 +88,9 @@ export default {
   components: { EditorContent, GIcon },
 
   props: {
-    initialContent: {
-      type:String,
-      required: false,
-      default:()=>`<p class="g-text--content-1-a"></p>`
+    modelValue: {
+      type: String,
+      default: () => `<p class="g-text--content-1-a"></p>`
     },
   },
 
@@ -189,9 +100,21 @@ export default {
     resizeData: null,
   }),
 
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler(value) {
+
+        if (this.editor && value !== this.editor.getHTML()) {
+          this.editor.commands.setContent(value, false);
+        }
+      }
+    }
+  },
+
   mounted() {
     this.editor = new Editor({
-      content: this.initialContent,
+      content: this.modelValue,
       extensions: [
         StarterKit.configure({
           heading: false,
@@ -203,6 +126,15 @@ export default {
           resize: true,
         }),
       ],
+      onUpdate: () => {
+
+        const html = this.editor.getHTML();
+
+        this.$emit('update:modelValue', html);
+      },
+      onBlur: () => {
+        this.$emit('update:modelValue', this.editor.getHTML());
+      }
     });
 
     this.setupResizeHandlers();
@@ -344,12 +276,14 @@ export default {
     display: flex;
     gap: 8px;
     border-bottom: 1px solid var(--p-gray-scale-200);
+    overflow: auto;
 
     &-button {
       border: none;
       background: none;
     }
   }
+
   p {
     margin: 0;
   }
