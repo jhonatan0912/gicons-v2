@@ -94,7 +94,7 @@ export default {
   components: { EditorContent, GIcon },
 
   props: {
-    modelValue: {
+    value: {
       type: String,
       default: () => `<p class="g-text--content-1-a"></p>`
     },
@@ -107,7 +107,7 @@ export default {
   }),
 
   watch: {
-    modelValue: {
+    value: {
       immediate: true,
       handler(value) {
 
@@ -120,7 +120,7 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      content: this.modelValue,
+      content: this.value,
       extensions: [
         StarterKit.configure({
           heading: {
@@ -149,10 +149,10 @@ export default {
 
         const html = this.editor.getHTML();
 
-        this.$emit('update:modelValue', html);
+        this.$emit('update:value', html);
       },
       onBlur: () => {
-        this.$emit('update:modelValue', this.editor.getHTML());
+        this.$emit('update:value', this.editor.getHTML());
       }
     });
 
@@ -299,7 +299,7 @@ export default {
 
     &-button {
       border: none;
-      background: red;
+      background: none;
     }
   }
 

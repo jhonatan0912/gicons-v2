@@ -45,7 +45,7 @@
     </div> -->
 
     <div style="max-width: 400px">
-      <GEditor :modelValue="content" @update:modelValue="content = $event" />
+      <GEditor :value="content" @update:value="content = $event" />
       <strong>{{ content }}</strong>
     </div>
 
