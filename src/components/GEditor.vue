@@ -23,6 +23,10 @@
         :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }" title="Heading 2">
         <span class="icon">H2</span>
       </button>
+      <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" class="editor-toolbar-button"
+        :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }" title="Heading 3">
+        <span class="icon">H3</span>
+      </button>
 
       <!-- Text Alignment -->
       <button @click="editor.chain().focus().setTextAlign('left').run()" class="editor-toolbar-button"
@@ -43,7 +47,7 @@
       <!-- Block Formatting -->
       <button @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('blockquote') }" title="Blockquote">
-        <span class="icon">"</span>
+        <span class="icon">" "</span>
       </button>
 
       <GIcon name="Substract" title="Horizontal Line" hover @click="editor.chain().focus().setHorizontalRule().run()" />
@@ -80,7 +84,9 @@
 <script>
 import { Editor, EditorContent } from "@tiptap/vue-2";
 import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline"; 
 import ImageWithTools from "@tiptap/extension-image";
+import TextAlign from "@tiptap/extension-text-align";
 
 import GIcon from "./GIcon.vue";
 
@@ -117,18 +123,26 @@ export default {
       content: this.modelValue,
       extensions: [
         StarterKit.configure({
-          heading: false,
+          heading: {
+            levels: [1, 2, 3],
+          },
           paragraph: {
             HTMLAttributes: {
               class: "g-text--content-1-a",
             },
           },
         }),
+        Underline,
         ImageWithTools.configure({
           HTMLAttributes: {
             class: "resizable-image",
           },
           resize: true,
+        }),
+        TextAlign.configure({
+          types: ["heading", "paragraph"],
+          alignments: ['left', 'center', 'right'],
+          defaultAlignment: 'left',
         }),
       ],
       onUpdate: () => {
