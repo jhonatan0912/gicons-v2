@@ -118,6 +118,11 @@ export default {
       extensions: [
         StarterKit.configure({
           heading: false,
+          paragraph: {
+            HTMLAttributes: {
+              class: "g-text--content-1-a",
+            },
+          },
         }),
         ImageWithTools.configure({
           HTMLAttributes: {
@@ -274,9 +279,9 @@ export default {
   &-toolbar {
     padding: 4px 8px;
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     border-bottom: 1px solid var(--p-gray-scale-200);
-    overflow: auto;
 
     &-button {
       border: none;
