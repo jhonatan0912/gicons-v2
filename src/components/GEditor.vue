@@ -1,6 +1,9 @@
 <template>
   <div class="editor">
     <div v-if="editor" class="editor-toolbar">
+
+      TEXT
+      <div class="vertical-separator"></div>
       <!-- Text Formatting -->
       <GIcon name="Bold3" title="Bold" hover :selected="editor.isActive('bold')"
         @click="editor.chain().focus().toggleBold().run()" />
@@ -15,7 +18,7 @@
         @click="editor.chain().focus().toggleStrike().run()" />
 
       <!-- Headings -->
-      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
+      <!-- <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
         class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
         title="Heading 1">
         <span class="icon">H1</span>
@@ -29,17 +32,21 @@
         class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
         title="Heading 3">
         <span class="icon">H3</span>
-      </button>
+      </button> -->
+
+      <div class="vertical-separator"></div>
+      COLOR
+      <div class="vertical-separator"></div>
 
       <!-- Text Alignment -->
-      <button type="button" @click="editor.chain().focus().setTextAlign('left').run()" class="editor-toolbar-button"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" title="Align Left">
-        <span class="icon">←</span>
-      </button>
+      <GIcon name="TextAlignLeft" title="TextAlignLeft" hover :selected="editor.isActive({ textAlign: 'left' })"
+        @click="editor.chain().focus().setTextAlign('left').run()" />
       <GIcon name="TextAlignCenter" title="TextAlignCenter" hover :selected="editor.isActive({ textAlign: 'center' })"
         @click="editor.chain().focus().setTextAlign('center').run()" />
       <GIcon name="TextAlignRight" title="TextAlignRight" hover :selected="editor.isActive({ textAlign: 'right' })"
         @click="editor.chain().focus().setTextAlign('right').run()" />
+
+      <div class="vertical-separator"></div>
 
       <!-- Lists -->
       <GIcon name="UnorderedList" title="Bullet List" hover :selected="editor.isActive('bulletList')"
@@ -48,35 +55,39 @@
         @click="editor.chain().focus().toggleOrderedList().run()" />
 
       <!-- Block Formatting -->
-      <button type="button" @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
+      <!-- <button type="button" @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('blockquote') }" title="Blockquote">
         <span class="icon">" "</span>
-      </button>
+      </button> -->
 
-      <GIcon name="Substract" title="Horizontal Line" hover @click="editor.chain().focus().setHorizontalRule().run()" />
+      <!-- <GIcon name="Substract" title="Horizontal Line" hover @click="editor.chain().focus().setHorizontalRule().run()" /> -->
+
+      <div class="vertical-separator"></div>
 
       <!-- Links & Media -->
-      <GIcon name="FileImage" title="Insert Image" hover @click="openImageUpload" />
+      <GIcon name="Image2" title="Insert Image" hover @click="openImageUpload" />
+
+      <GIcon name="Link" title="Insert Link" hover :selected="editor.isActive('link')" @click="setLink" />
 
       <!-- Code -->
-      <button type="button" @click="editor.chain().focus().toggleCode().run()" class="editor-toolbar-button"
+      <!-- <button type="button" @click="editor.chain().focus().toggleCode().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('code') }" title="Inline Code">
         <span class="icon">{{ "</>" }}</span>
       </button>
       <button type="button" @click="editor.chain().focus().toggleCodeBlock().run()" class="editor-toolbar-button"
         :class="{ 'is-active': editor.isActive('codeBlock') }" title="Code Block">
         <span class="icon">{{ "'</>'" }}</span>
-      </button>
+      </button> -->
 
       <!-- Undo/Redo -->
-      <button type="button" @click="editor.chain().focus().undo().run()" class="editor-toolbar-button"
+      <!-- <button type="button" @click="editor.chain().focus().undo().run()" class="editor-toolbar-button"
         :disabled="!editor.can().undo()" title="Undo">
         <span class="icon">↩️</span>
       </button>
       <button type="button" @click="editor.chain().focus().redo().run()" class="editor-toolbar-button"
         :disabled="!editor.can().redo()" title="Redo">
         <span class="icon">↪️</span>
-      </button>
+      </button> -->
     </div>
 
     <editor-content :editor="editor" class="editor-content" />
@@ -96,6 +107,9 @@ import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import ImageWithTools from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
+import Link from "@tiptap/extension-link"
+import Gapcursor from '@tiptap/extension-gapcursor'
+
 
 import GIcon from "./GIcon.vue";
 
@@ -142,6 +156,15 @@ export default {
           },
         }),
         Underline,
+        Gapcursor,
+        Link.configure({
+          autolink: true,
+          openOnClick: false,
+          linkOnPaste: true,
+          HTMLAttributes: {
+            class: "g-text--content-1-a",
+          },
+        }),
         ImageWithTools.configure({
           HTMLAttributes: {
             class: "resizable-image",
@@ -169,6 +192,23 @@ export default {
   },
 
   methods: {
+    setLink() {
+      if (this.editor.isActive('link')) {
+        this.editor.chain().focus().unsetLink().run()
+      } else {
+        let url = window.prompt('Enter the URL')
+
+        // Basic URL validation
+        if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'https://' + url
+        }
+
+        if (url) {
+          this.editor.chain().focus().toggleLink({ href: url }).run()
+        }
+      }
+    },
+
     openImageUpload() {
       this.$refs.fileInput.click();
     },
@@ -403,6 +443,13 @@ export default {
 .tiptap.ProseMirror {
   outline: none;
   padding: 16px;
+}
+
+.vertical-separator {
+  width: 1px;
+  height: 27px;
+  margin-top: 1px;
+  background-color: var(--p-gray-scale-200);
 }
 
 .is-active {

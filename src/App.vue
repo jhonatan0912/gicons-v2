@@ -1,7 +1,5 @@
 <template>
-  <div
-    style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem"
-  >
+  <div style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem">
     <!-- <div style="display: flex; gap: 0.5rem">
       <label for="icon"> Buscar Icono </label>
       <input
@@ -104,7 +102,7 @@ export default {
   },
   data() {
     return {
-      content: "<p>Default Content</p>",
+      content: "",
       list: [],
       hover: false,
       active: false,
