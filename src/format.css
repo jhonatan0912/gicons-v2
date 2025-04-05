@@ -30,3 +30,8 @@ h3 {
   letter-spacing: 0px;
 
 }
+
+
+.ProseMirror-selectednode {
+  outline: 2px solid var(--p-primary-main);
+}

@@ -34,8 +34,9 @@
         <span class="icon">H3</span>
       </button> -->
 
+      <!-- :selected="editor.isActive({ textAlign: 'left' })" -->
       <div class="vertical-separator"></div>
-      COLOR
+      <GIcon name="Text" title="Text Color" hover @click="toggleColorPicker" />
       <div class="vertical-separator"></div>
 
       <!-- Text Alignment -->
@@ -109,6 +110,8 @@ import ImageWithTools from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link"
 import Gapcursor from '@tiptap/extension-gapcursor'
+import TextStyle from "@tiptap/extension-text-style"
+import { Color } from "@tiptap/extension-color";
 
 
 import GIcon from "./GIcon.vue";
@@ -155,6 +158,10 @@ export default {
             },
           },
         }),
+        Color.configure({
+          types: ['textStyle'],
+        }),
+        TextStyle,
         Underline,
         Gapcursor,
         Link.configure({
@@ -192,13 +199,22 @@ export default {
   },
 
   methods: {
+
+    toggleColorPicker() {
+      const colorPicker = document.createElement('input')
+      colorPicker.type = 'color'
+      colorPicker.addEventListener('input', (event) => {
+        this.editor.chain().focus().setColor(event.target.value).run()
+      })
+      colorPicker.click()
+    },
+
     setLink() {
       if (this.editor.isActive('link')) {
         this.editor.chain().focus().unsetLink().run()
       } else {
         let url = window.prompt('Enter the URL')
 
-        // Basic URL validation
         if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
           url = 'https://' + url
         }
