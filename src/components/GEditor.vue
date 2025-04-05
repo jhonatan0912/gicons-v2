@@ -135,11 +135,11 @@ export default {
           heading: {
             levels: [1, 2, 3],
           },
-          // paragraph: {
-          //   HTMLAttributes: {
-          //     class: "g-text--content-1-a",
-          //   },
-          // },
+          paragraph: {
+            HTMLAttributes: {
+              class: "g-text--content-1-a",
+            },
+          },
         }),
         Underline,
         ImageWithTools.configure({
@@ -424,5 +424,4 @@ export default {
   user-select: none;
   will-change: width, height;
 }
-
 </style>

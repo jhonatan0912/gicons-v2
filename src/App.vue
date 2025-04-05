@@ -44,10 +44,8 @@
       </div>
     </div> -->
 
-    <div style="max-width: 400px">
-      <GEditor :value="content" @update:value="content = $event" />
-      <strong>{{ content }}</strong>
-    </div>
+    <GEditor :value="content" @update:value="content = $event" />
+    <p>{{ content }}</p>
 
     <!-- <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
       <div
