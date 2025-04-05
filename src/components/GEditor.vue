@@ -85,7 +85,8 @@
     <div class="resize-handle" data-resize-handle="bottom-left"></div>
     <div class="resize-handle" data-resize-handle="top-right"></div>
     <div class="resize-handle" data-resize-handle="top-left"></div>
-    <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handleImageUpload" />
+    <input type="file" ref="fileInput" accept="image/jpeg,image/webp" style="display: none"
+      @change="handleImageUpload" />
   </div>
 </template>
 
@@ -176,6 +177,18 @@ export default {
       const file = event.target.files[0];
       if (!file) return;
 
+      const validTypes = ['image/jpeg', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        this.$emit('on-upload-error', 'Por favor, cargue una imagen JPEG o WebP');
+        return;
+      }
+
+      const MAX_SIZE = 500 * 1024;
+      if (file.size > MAX_SIZE) {
+        this.$emit('on-upload-error', 'Por favor, suba una imagen de menos de 500KB');
+        return;
+      }
+
       event.target.value = "";
 
       this.isUploading = true;
@@ -185,6 +198,7 @@ export default {
         const base64 = e.target.result;
         const img = new Image();
         img.src = base64;
+
         img.onload = () => {
           this.editor
             .chain()
