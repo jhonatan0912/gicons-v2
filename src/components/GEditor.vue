@@ -241,6 +241,43 @@ export default {
         document.addEventListener("mouseup", onMouseUp, { once: true });
       };
 
+      const updateCursorOnHover = (e) => {
+        const img = e.target.closest(".resizable-image");
+        if (!img) return;
+
+        const rect = img.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
+
+
+        const edgeThreshold = 10;
+        const nearTop = offsetY < edgeThreshold;
+        const nearBottom = rect.bottom - e.clientY < edgeThreshold;
+        const nearLeft = offsetX < edgeThreshold;
+        const nearRight = rect.right - e.clientX < edgeThreshold;
+
+
+        if (nearTop && nearLeft) {
+          img.style.cursor = 'nwse-resize';
+        } else if (nearTop && nearRight) {
+          img.style.cursor = 'nesw-resize';
+        } else if (nearBottom && nearLeft) {
+          img.style.cursor = 'nesw-resize';
+        } else if (nearBottom && nearRight) {
+          img.style.cursor = 'nwse-resize';
+        } else if (nearTop) {
+          img.style.cursor = 'n-resize';
+        } else if (nearBottom) {
+          img.style.cursor = 's-resize';
+        } else if (nearLeft) {
+          img.style.cursor = 'w-resize';
+        } else if (nearRight) {
+          img.style.cursor = 'e-resize';
+        } else {
+          img.style.cursor = 'default';
+        }
+      };
+
       const onMouseMove = (e) => {
         if (!this.resizeData) return;
 
@@ -258,6 +295,9 @@ export default {
           let newHeight = startHeight;
 
           if (!e.shiftKey) {
+            newWidth = Math.max(50, startWidth + dx);
+            newHeight = Math.max(50, startHeight + dy);
+          } else {
             switch (edge) {
               case 'bottom-right':
                 newWidth = Math.max(50, startWidth + dx);
@@ -279,9 +319,6 @@ export default {
                 newWidth = Math.max(50, startWidth + dx);
                 newHeight = newWidth / aspectRatio;
             }
-          } else {
-            newWidth = Math.max(50, startWidth + dx);
-            newHeight = Math.max(50, startHeight + dy);
           }
 
           img.style.width = `${newWidth}px`;
@@ -313,15 +350,24 @@ export default {
         document.removeEventListener("mousemove", onMouseMove);
       };
 
+      const onMouseOver = (e) => {
+        if (e.target.closest(".resizable-image")) {
+          updateCursorOnHover(e);
+        }
+      };
+
       document.addEventListener("mousedown", onMouseDown);
+      document.addEventListener("mouseover", onMouseOver);
 
       this.$once("hook:beforeDestroy", () => {
         document.removeEventListener("mousedown", onMouseDown);
+        document.removeEventListener("mouseover", onMouseOver);
         if (animationFrameId) {
           cancelAnimationFrame(animationFrameId);
         }
       });
     }
+
   },
 
   beforeDestroy() {
@@ -369,36 +415,14 @@ export default {
   max-width: 100%;
   height: auto;
   transition: width 0.05s linear, height 0.05s linear;
-  cursor: move;
   touch-action: none;
+  border: 2px solid transparent;
 }
 
 .resizable-image.resizing {
-  outline: 2px dashed #4299e1;
+  border: 2px solid var(--p-primary-main);
   user-select: none;
   will-change: width, height;
 }
 
-.resizable-image::after {
-  content: "";
-  position: absolute;
-  right: -8px;
-  bottom: -8px;
-  width: 16px;
-  height: 16px;
-  background: #4299e1;
-  border: 2px solid white;
-  border-radius: 50%;
-  cursor: nwse-resize;
-  opacity: 0;
-  transition: opacity 0.1s ease;
-  z-index: 10;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-}
-
-.resizable-image:hover::after {
-  opacity: 1;
-  pointer-events: auto;
-}
 </style>

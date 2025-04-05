@@ -7,6 +7,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         implementation: require("sass"),
+        silenceDeprecations: ["legacy-js-api"],
       },
     },
   },
