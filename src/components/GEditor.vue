@@ -3,7 +3,7 @@
     <div v-if="editor" class="editor-toolbar">
       <Popover>
         <div class="popover__main">
-          <span v-html="currentText.label"></span>
+          <span class="g-text--content-1-b" v-html="currentText.label"></span>
           <GIcon name="ArrowGeorDown" size="xs" />
         </div>
 
