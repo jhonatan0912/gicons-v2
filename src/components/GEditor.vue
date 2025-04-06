@@ -27,26 +27,18 @@
       <GIcon name="Strikethrough" title="Strikethrough" hover :selected="editor.isActive('strike')"
         @click="editor.chain().focus().toggleStrike().run()" />
 
-      <!-- Headings -->
-      <!-- <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-        class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
-        title="Heading 1">
-        <span class="icon">H1</span>
-      </button>
-      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-        class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
-        title="Heading 2">
-        <span class="icon">H2</span>
-      </button>
-      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-        class="editor-toolbar-button" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
-        title="Heading 3">
-        <span class="icon">H3</span>
-      </button> -->
-
-      <!-- :selected="editor.isActive({ textAlign: 'left' })" -->
       <div class="vertical-separator"></div>
-      <GIcon name="Text" title="Text Color" hover @click="toggleColorPicker" />
+      <Popover custom-class="popover__color">
+        <GIcon name="Text" title="Text Color" hover />
+
+        <template #content="{ close }">
+          <div class="popover__main colors">
+            <span v-for="(color, index) in colors" :key="index" :title="color.title"
+              :style="{ backgroundColor: color.value }" @click="setColor(color.value, close)">
+            </span>
+          </div>
+        </template>
+      </Popover>
       <div class="vertical-separator"></div>
 
       <!-- Text Alignment -->
@@ -126,6 +118,7 @@ import { Color } from "@tiptap/extension-color";
 
 import GIcon from "./GIcon.vue";
 import Popover from "./utils/Popover.vue";
+import { colors } from "../utils/colors"
 
 export default {
   components: { EditorContent, GIcon, Popover },
@@ -138,6 +131,7 @@ export default {
   },
 
   data: () => ({
+    colors: colors,
     editor: null,
     isUploading: false,
     resizeData: null,
@@ -251,13 +245,10 @@ export default {
       closePopover()
     },
 
-    toggleColorPicker() {
-      const colorPicker = document.createElement('input')
-      colorPicker.type = 'color'
-      colorPicker.addEventListener('input', (event) => {
-        this.editor.chain().focus().setColor(event.target.value).run()
-      })
-      colorPicker.click()
+    setColor(value, closePopover) {
+      this.editor.chain().focus().setColor(value).run();
+      closePopover()
+
     },
 
     setLink() {
@@ -522,36 +513,5 @@ export default {
 
 .is-active {
   background-color: var(--p-disabled-button-main);
-}
-
-.resizable-image {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-  height: auto;
-  transition: width 0.05s linear, height 0.05s linear;
-  touch-action: none;
-  border: 2px solid transparent;
-}
-
-.resizable-image.resizing {
-  border: 2px solid var(--p-primary-main);
-  user-select: none;
-  will-change: width, height;
-}
-
-.popover__main {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.text__option {
-  cursor: pointer;
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--p-gray-scale-100);
-  }
 }
 </style>

@@ -1,0 +1,15 @@
+.resizable-image {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  transition: width 0.05s linear, height 0.05s linear;
+  touch-action: none;
+  border: 2px solid transparent;
+}
+
+.resizable-image.resizing {
+  border: 2px solid var(--p-primary-main);
+  user-select: none;
+  will-change: width, height;
+}

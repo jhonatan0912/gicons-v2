@@ -1,4 +1,7 @@
- @import './format.css';
+ @import './css/colors.css';
+ @import './css/format.css';
+ @import './css/image.css';
+ @import './css/text.css';
 
 :root {
   --p-background-primary:#FFFFFF;

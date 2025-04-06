@@ -3,7 +3,7 @@
     <div @click="toggle" class="custom__popover-trigger">
       <slot></slot>
     </div>
-    <div class="custom__popover-content" :class="position" v-show="isVisible">
+    <div class="custom__popover-content" :class="[position, customClass]" v-show="isVisible">
       <slot name="content" :close="close"></slot>
     </div>
   </div>
@@ -17,6 +17,10 @@ export default {
       type: String,
       default: 'bottom',
     },
+    customClass: {
+      type: String,
+      default: '',
+    }
   },
   data() {
     return {
