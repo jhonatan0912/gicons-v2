@@ -189,6 +189,9 @@ export default {
         StarterKit.configure({
           heading: {
             levels: [1, 2, 3],
+            HTMLAttributes: {
+              class: "g-editor-heading",
+            },
           },
           paragraph: {
             HTMLAttributes: {
@@ -540,6 +543,14 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px;
+}
 
+.text__option {
+  cursor: pointer;
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--p-gray-scale-100);
+  }
 }
 </style>

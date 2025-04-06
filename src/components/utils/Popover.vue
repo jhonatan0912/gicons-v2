@@ -60,11 +60,12 @@ export default {
   .custom__popover-content {
     display: block;
     position: absolute;
-    padding: 10px;
     z-index: 1000;
     white-space: nowrap;
     border-radius: 5px;
     background: #FFFFFF;
+    padding-block: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
     &.top {
       bottom: 100%;
