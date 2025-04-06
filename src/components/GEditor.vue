@@ -493,7 +493,7 @@ export default {
     padding: 4px 16px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 2px;
     border-bottom: 1px solid var(--p-gray-scale-200);
 
     &-button {
@@ -516,6 +516,7 @@ export default {
   width: 1px;
   height: 27px;
   margin-top: 1px;
+  margin-inline: 5px;
   background-color: var(--p-gray-scale-200);
 }
 
