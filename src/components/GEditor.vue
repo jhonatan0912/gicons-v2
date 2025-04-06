@@ -1,8 +1,18 @@
 <template>
   <div class="editor">
     <div v-if="editor" class="editor-toolbar">
+      <Popover>
+        <div class="popover__main">
+          <span v-html="currentText.label"></span>
+          <GIcon name="ArrowGeorDown" size="xs" />
+        </div>
 
-      TEXT
+        <template #content="{ close }">
+          <div class="text__option" v-for="option in options" :key="option.value" @click="setHeading(option, close)">
+            <span v-html="option.htmlLabel"></span>
+          </div>
+        </template>
+      </Popover>
       <div class="vertical-separator"></div>
       <!-- Text Formatting -->
       <GIcon name="Bold3" title="Bold" hover :selected="editor.isActive('bold')"
@@ -115,9 +125,10 @@ import { Color } from "@tiptap/extension-color";
 
 
 import GIcon from "./GIcon.vue";
+import Popover from "./utils/Popover.vue";
 
 export default {
-  components: { EditorContent, GIcon },
+  components: { EditorContent, GIcon, Popover },
 
   props: {
     value: {
@@ -130,6 +141,33 @@ export default {
     editor: null,
     isUploading: false,
     resizeData: null,
+    currentText: {
+      label: 'Texto normal',
+      htmlLabel: `<p class="g-text--content-1-a">Texto normal</p>`,
+      value: 'normal',
+    },
+    options: [
+      {
+        label: 'Texto normal',
+        htmlLabel: `<p class="g-text--content-1-a">Texto normal</p>`,
+        value: 'normal',
+      },
+      {
+        label: 'Título 1',
+        htmlLabel: `<h1 class="g-tx--h5-b">Título 1</h1>`,
+        value: 1,
+      },
+      {
+        label: 'Título 2',
+        htmlLabel: `<h2 class="g-tx--h6-b">Título 2</h2>`,
+        value: 2,
+      },
+      {
+        label: 'Título 3',
+        htmlLabel: `<h3 class="g-tx--content-b">Título 3</h3>`,
+        value: 3,
+      }
+    ]
   }),
 
   watch: {
@@ -199,6 +237,16 @@ export default {
   },
 
   methods: {
+    setHeading(option, closePopover) {
+      if (option.value === 'normal') {
+        this.editor.chain().focus().setParagraph().run();
+        this.currentText.label = `<p class="g-text--content-1-a">Texto normal</p>`;
+      } else {
+        this.editor.chain().focus().toggleHeading({ level: option.value }).run();
+        this.currentText.label = option.label;
+      }
+      closePopover()
+    },
 
     toggleColorPicker() {
       const colorPicker = document.createElement('input')
@@ -439,7 +487,7 @@ export default {
   border-radius: 5px;
 
   &-toolbar {
-    padding: 4px 8px;
+    padding: 4px 16px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -486,5 +534,12 @@ export default {
   border: 2px solid var(--p-primary-main);
   user-select: none;
   will-change: width, height;
+}
+
+.popover__main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
 }
 </style>
