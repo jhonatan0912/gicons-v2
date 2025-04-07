@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tiptap/extension-bold": "^2.11.7",
     "@tiptap/extension-color": "^2.11.7",
     "@tiptap/extension-gapcursor": "^2.11.7",
     "@tiptap/extension-image": "^2.11.7",

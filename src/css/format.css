@@ -1,10 +1,11 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-strong {
+strong,
+strong.g-editor-bold {
   font-weight: bold;
 }
 
@@ -14,14 +15,16 @@ hr {
   margin: 20px 0;
 }
 
-h1, h1.g-editor-header {
+h1,
+h1.g-editor-header {
   font-weight: 500;
   font-size: 24px;
   line-height: 28px;
   letter-spacing: 0%;
 }
 
-h2, h2.g-editor-header  {
+h2,
+h2.g-editor-header {
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -29,7 +32,8 @@ h2, h2.g-editor-header  {
 
 }
 
-h3, h3.g-editor-header  {
+h3,
+h3.g-editor-header {
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
