@@ -1,4 +1,3 @@
-// src/extensions/MyImage.ts
 import { mergeAttributes } from "@tiptap/core";
 import { Image } from "@tiptap/extension-image";
 
@@ -8,7 +7,7 @@ export interface ImageOptions {
   HTMLAttributes: Record<string, any>;
 }
 
-export const MyImage = Image.extend<ImageOptions>({
+export const CustomImage = Image.extend<ImageOptions>({
   addAttributes() {
     const baseAttrs = Image.config.addAttributes?.() ?? {};
 
