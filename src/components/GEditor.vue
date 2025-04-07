@@ -8,24 +8,26 @@
         </div>
 
         <template #content="{ close }">
-          <div class="text__option" v-for="option in options" :key="option.value" @click="setHeading(option, close)"
-            v-html="option.htmlLabel">
+          <div class="text__option" :class="{ 'is-active': currentText.value === option.value }"
+            v-for="option in options" :key="option.value" @click="setHeading(option, close)" v-html="option.htmlLabel">
           </div>
         </template>
       </Popover>
+
       <div class="vertical-separator"></div>
+
       <!-- Text Formatting -->
-      <GIcon name="Bold3" title="Bold" hover :selected="editor.isActive('bold')"
+      <GIcon name="Bold3" title="Bold" hover :selected="editor.isActive('bold')" :color="isSelected('bold')"
         @click="editor.chain().focus().toggleBold().run()" />
 
-      <GIcon name="Italic3" title="Italic" hover :selected="editor.isActive('italic')"
+      <GIcon name="Italic3" title="Italic" hover :selected="editor.isActive('italic')" :color="isSelected('italic')"
         @click="editor.chain().focus().toggleItalic().run()" />
 
       <GIcon name="Underline" title="Underline" hover :selected="editor.isActive('underline')"
-        @click="editor.chain().focus().toggleUnderline().run()" />
+        :color="isSelected('underline')" @click="editor.chain().focus().toggleUnderline().run()" />
 
       <GIcon name="Strikethrough" title="Strikethrough" hover :selected="editor.isActive('strike')"
-        @click="editor.chain().focus().toggleStrike().run()" />
+        :color="isSelected('strike')" @click="editor.chain().focus().toggleStrike().run()" />
 
       <div class="vertical-separator"></div>
       <Popover custom-class="popover__color">
@@ -39,23 +41,27 @@
           </div>
         </template>
       </Popover>
+
       <div class="vertical-separator"></div>
 
       <!-- Text Alignment -->
       <GIcon name="TextAlignLeft" title="TextAlignLeft" hover :selected="editor.isActive({ textAlign: 'left' })"
+        :color="editor.isActive({ textAlign: 'left' }) ? '--p-primary-main' : '--p-text-primary'"
         @click="editor.chain().focus().setTextAlign('left').run()" />
       <GIcon name="TextAlignCenter" title="TextAlignCenter" hover :selected="editor.isActive({ textAlign: 'center' })"
+        :color="editor.isActive({ textAlign: 'center' }) ? '--p-primary-main' : '--p-text-primary'"
         @click="editor.chain().focus().setTextAlign('center').run()" />
       <GIcon name="TextAlignRight" title="TextAlignRight" hover :selected="editor.isActive({ textAlign: 'right' })"
+        :color="editor.isActive({ textAlign: 'right' }) ? '--p-primary-main' : '--p-text-primary'"
         @click="editor.chain().focus().setTextAlign('right').run()" />
 
       <div class="vertical-separator"></div>
 
       <!-- Lists -->
       <GIcon name="UnorderedList" title="Bullet List" hover :selected="editor.isActive('bulletList')"
-        @click="editor.chain().focus().toggleBulletList().run()" />
+        :color="isSelected('bulletList')" @click="editor.chain().focus().toggleBulletList().run()" />
       <GIcon name="NumberList" title="Numbered List" hover :selected="editor.isActive('orderedList')"
-        @click="editor.chain().focus().toggleOrderedList().run()" />
+        :color="isSelected('orderedList')" @click="editor.chain().focus().toggleOrderedList().run()" />
 
       <!-- Block Formatting -->
       <!-- <button type="button" @click="editor.chain().focus().toggleBlockquote().run()" class="editor-toolbar-button"
@@ -69,8 +75,8 @@
 
       <!-- Links & Media -->
       <GIcon name="Image2" title="Insert Image" hover @click="openImageUpload" />
-
-      <GIcon name="Link" title="Insert Link" hover :selected="editor.isActive('link')" @click="setLink" />
+      <GIcon name="Link" title="Insert Link" hover :selected="editor.isActive('link')" @click="setLink"
+        :color="isSelected('link')" />
 
       <!-- Code -->
       <!-- <button type="button" @click="editor.chain().focus().toggleCode().run()" class="editor-toolbar-button"
@@ -105,7 +111,7 @@
 </template>
 
 <script>
-import { Editor, EditorContent } from "@tiptap/vue-2";
+import { Editor, EditorContent, isActive } from "@tiptap/vue-2";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import ImageWithTools from "@tiptap/extension-image";
@@ -255,11 +261,10 @@ export default {
     setHeading(option, closePopover) {
       if (option.value === 'normal') {
         this.editor.chain().focus().setParagraph().run();
-        this.currentText.label = `<p class="g-text--content-1-a">Texto normal</p>`;
       } else {
         this.editor.chain().focus().toggleHeading({ level: option.value }).run();
-        this.currentText.label = option.label;
       }
+      this.currentText = option;
       closePopover()
     },
 
@@ -484,6 +489,10 @@ export default {
       });
     },
 
+    isSelected(name) {
+      return this.editor.isActive(name) ? '--p-primary-main' : '--p-text-primary';
+    },
+
     clear() {
       this.$emit("update:value", "")
       this.editor.commands.clearContent();
@@ -538,6 +547,6 @@ export default {
 }
 
 .is-active {
-  background-color: var(--p-disabled-button-main);
+  background-color: var(--p-secondary-low-shade);
 }
 </style>
