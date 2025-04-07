@@ -132,6 +132,7 @@ import { Editor, EditorContent } from "@tiptap/vue-2";
 import { colors } from "../utils/colors";
 import GIcon from "./GIcon.vue";
 import Popover from "./utils/Popover.vue";
+import { MyImage } from "../utils/CustomImage";
 
 export default {
   components: { EditorContent, GIcon, Popover },
@@ -192,6 +193,7 @@ export default {
     this.editor = new Editor({
       content: this.value,
       extensions: [
+        MyImage,
         StarterKit.configure({
           heading: {
             levels: [1, 2, 3],
@@ -491,18 +493,36 @@ export default {
         const { img } = this.resizeData;
         img.classList.remove("resizing");
 
-        this.editor
-          .chain()
-          .focus()
-          .updateAttributes("image", {
-            width: img.style.width,
-            height: img.style.height,
-          })
-          .run();
+        const { view } = this.editor;
+        const { state } = view;
+        const { tr, doc } = state;
+
+        let found = false;
+        let updatedNode = null;
+
+        doc.descendants((node, pos) => {
+          if (!found && node.type.name === "image") {
+            const newAttrs = {
+              ...node.attrs,
+              width: img.style.width,
+              height: img.style.height,
+            };
+            tr.setNodeMarkup(pos, undefined, newAttrs);
+            found = true;
+            updatedNode = { pos, attrs: newAttrs };
+          }
+        });
+
+        if (found) {
+          view.dispatch(tr);
+        } else {
+          console.warn("⚠️ No image node found to update.");
+        }
 
         this.resizeData = null;
         document.removeEventListener("mousemove", onMouseMove);
       };
+
 
       const onMouseOver = (e) => {
         if (e.target.closest(".resizable-image")) {
