@@ -45,15 +45,20 @@
       <div class="vertical-separator"></div>
 
       <!-- Text Alignment -->
-      <GIcon name="TextAlignLeft" title="TextAlignLeft" hover :selected="editor.isActive({ textAlign: 'left' })"
-        :color="editor.isActive({ textAlign: 'left' }) ? '--p-primary-main' : '--p-text-primary'"
-        @click="editor.chain().focus().setTextAlign('left').run()" />
+      <GIcon name="TextAlignLeft" title="TextAlignLeft" hover :selected="editor.isActive({ textAlign: 'left' })" :color="editor.isActive({ textAlign: 'left' })
+        ? '--p-primary-main'
+        : '--p-text-primary'
+        " @click="editor.chain().focus().setTextAlign('left').run()" />
       <GIcon name="TextAlignCenter" title="TextAlignCenter" hover :selected="editor.isActive({ textAlign: 'center' })"
-        :color="editor.isActive({ textAlign: 'center' }) ? '--p-primary-main' : '--p-text-primary'"
-        @click="editor.chain().focus().setTextAlign('center').run()" />
+        :color="editor.isActive({ textAlign: 'center' })
+          ? '--p-primary-main'
+          : '--p-text-primary'
+          " @click="editor.chain().focus().setTextAlign('center').run()" />
       <GIcon name="TextAlignRight" title="TextAlignRight" hover :selected="editor.isActive({ textAlign: 'right' })"
-        :color="editor.isActive({ textAlign: 'right' }) ? '--p-primary-main' : '--p-text-primary'"
-        @click="editor.chain().focus().setTextAlign('right').run()" />
+        :color="editor.isActive({ textAlign: 'right' })
+          ? '--p-primary-main'
+          : '--p-text-primary'
+          " @click="editor.chain().focus().setTextAlign('right').run()" />
 
       <div class="vertical-separator"></div>
 
@@ -111,23 +116,22 @@
 </template>
 
 <script>
-import { Editor, EditorContent, isActive } from "@tiptap/vue-2";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import ImageWithTools from "@tiptap/extension-image";
-import TextAlign from "@tiptap/extension-text-align";
-import Link from "@tiptap/extension-link"
-import Gapcursor from '@tiptap/extension-gapcursor'
-import TextStyle from "@tiptap/extension-text-style"
-import Bold from "@tiptap/extension-bold"
-import BulletList from "@tiptap/extension-bullet-list"
-import OrderedList from "@tiptap/extension-ordered-list"
+import Bold from "@tiptap/extension-bold";
+import BulletList from "@tiptap/extension-bullet-list";
 import { Color } from "@tiptap/extension-color";
+import Gapcursor from "@tiptap/extension-gapcursor";
+import ImageWithTools from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
+import OrderedList from "@tiptap/extension-ordered-list";
+import TextAlign from "@tiptap/extension-text-align";
+import TextStyle from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
+import StarterKit from "@tiptap/starter-kit";
+import { Editor, EditorContent } from "@tiptap/vue-2";
 
-
+import { colors } from "../utils/colors";
 import GIcon from "./GIcon.vue";
 import Popover from "./utils/Popover.vue";
-import { colors } from "../utils/colors"
 
 export default {
   components: { EditorContent, GIcon, Popover },
@@ -135,7 +139,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: () => `<p class="g-text--content-1-a"></p>`
+      default: () => `<p class="g-text--content-1-a"></p>`,
     },
   },
 
@@ -145,44 +149,43 @@ export default {
     isUploading: false,
     resizeData: null,
     currentText: {
-      label: 'Texto normal',
+      label: "Texto normal",
       htmlLabel: `<p class="g-text--content-1-a">Texto normal</p>`,
-      value: 'normal',
+      value: "normal",
     },
     options: [
       {
-        label: 'Texto normal',
+        label: "Texto normal",
         htmlLabel: `<p class="g-text--content-1-a">Texto normal</p>`,
-        value: 'normal',
+        value: "normal",
       },
       {
-        label: 'Título 1',
+        label: "Título 1",
         htmlLabel: `<h1 class="g-tx--h5-b">Título 1</h1>`,
         value: 1,
       },
       {
-        label: 'Título 2',
+        label: "Título 2",
         htmlLabel: `<h2 class="g-tx--h6-b">Título 2</h2>`,
         value: 2,
       },
       {
-        label: 'Título 3',
+        label: "Título 3",
         htmlLabel: `<h3 class="g-tx--content-b">Título 3</h3>`,
         value: 3,
-      }
-    ]
+      },
+    ],
   }),
 
   watch: {
     value: {
       immediate: true,
       handler(value) {
-
         if (this.editor && value !== this.editor.getHTML()) {
           this.editor.commands.setContent(value, false);
         }
-      }
-    }
+      },
+    },
   },
 
   mounted() {
@@ -204,15 +207,15 @@ export default {
           bold: false,
           gapcursor: false,
           bulletList: false,
-          orderedList: false
+          orderedList: false,
         }),
         Bold.configure({
           HTMLAttributes: {
             class: "g-editor-bold",
-          }
+          },
         }),
         Color.configure({
-          types: ['textStyle'],
+          types: ["textStyle"],
         }),
         TextStyle,
         Underline,
@@ -243,19 +246,18 @@ export default {
         }),
         TextAlign.configure({
           types: ["heading", "paragraph"],
-          alignments: ['left', 'center', 'right'],
-          defaultAlignment: 'left',
+          alignments: ["left", "center", "right"],
+          defaultAlignment: "left",
         }),
       ],
       onUpdate: () => {
-
         const html = this.editor.getHTML();
 
-        this.$emit('update:value', html);
+        this.$emit("update:value", html);
       },
       onBlur: () => {
-        this.$emit('update:value', this.editor.getHTML());
-      }
+        this.$emit("update:value", this.editor.getHTML());
+      },
     });
 
     this.setupResizeHandlers();
@@ -263,33 +265,36 @@ export default {
 
   methods: {
     setHeading(option, closePopover) {
-      if (option.value === 'normal') {
+      if (option.value === "normal") {
         this.editor.chain().focus().setParagraph().run();
       } else {
-        this.editor.chain().focus().toggleHeading({ level: option.value }).run();
+        this.editor
+          .chain()
+          .focus()
+          .toggleHeading({ level: option.value })
+          .run();
       }
       this.currentText = option;
-      closePopover()
+      closePopover();
     },
 
     setColor(value, closePopover) {
       this.editor.chain().focus().setColor(value).run();
-      closePopover()
-
+      closePopover();
     },
 
     setLink() {
-      if (this.editor.isActive('link')) {
-        this.editor.chain().focus().unsetLink().run()
+      if (this.editor.isActive("link")) {
+        this.editor.chain().focus().unsetLink().run();
       } else {
-        let url = window.prompt('Ingresa la URL del enlace');
+        let url = window.prompt("Ingresa la URL del enlace");
 
-        if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-          url = 'https://' + url
+        if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
+          url = "https://" + url;
         }
 
         if (url) {
-          this.editor.chain().focus().toggleLink({ href: url }).run()
+          this.editor.chain().focus().toggleLink({ href: url }).run();
         }
       }
     },
@@ -302,15 +307,21 @@ export default {
       const file = event.target.files[0];
       if (!file) return;
 
-      const validTypes = ['image/jpeg', 'image/webp'];
+      const validTypes = ["image/jpeg", "image/webp"];
       if (!validTypes.includes(file.type)) {
-        this.$emit('on-upload-error', 'Por favor, cargue una imagen JPEG o WebP');
+        this.$emit(
+          "on-upload-error",
+          "Por favor, cargue una imagen JPEG o WebP"
+        );
         return;
       }
 
       const MAX_SIZE = 500 * 1024;
       if (file.size > MAX_SIZE) {
-        this.$emit('on-upload-error', 'Por favor, suba una imagen de menos de 500KB');
+        this.$emit(
+          "on-upload-error",
+          "Por favor, suba una imagen de menos de 500KB"
+        );
         return;
       }
 
@@ -347,10 +358,22 @@ export default {
         const img = e.target.closest(".resizable-image");
         if (!img || e.button !== 0) return;
 
+        const rect = img.getBoundingClientRect();
+        const edgeThreshold = 10;
+
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
+
+        const nearTop = offsetY < edgeThreshold;
+        const nearBottom = rect.bottom - e.clientY < edgeThreshold;
+        const nearLeft = offsetX < edgeThreshold;
+        const nearRight = rect.right - e.clientX < edgeThreshold;
+
+        if (!(nearTop || nearBottom || nearLeft || nearRight)) return;
+
         e.preventDefault();
         e.stopPropagation();
 
-        const rect = img.getBoundingClientRect();
         this.resizeData = {
           img,
           startX: e.clientX,
@@ -374,32 +397,30 @@ export default {
         const offsetX = e.clientX - rect.left;
         const offsetY = e.clientY - rect.top;
 
-
         const edgeThreshold = 10;
         const nearTop = offsetY < edgeThreshold;
         const nearBottom = rect.bottom - e.clientY < edgeThreshold;
         const nearLeft = offsetX < edgeThreshold;
         const nearRight = rect.right - e.clientX < edgeThreshold;
 
-
         if (nearTop && nearLeft) {
-          img.style.cursor = 'nwse-resize';
+          img.style.cursor = "nwse-resize";
         } else if (nearTop && nearRight) {
-          img.style.cursor = 'nesw-resize';
+          img.style.cursor = "nesw-resize";
         } else if (nearBottom && nearLeft) {
-          img.style.cursor = 'nesw-resize';
+          img.style.cursor = "nesw-resize";
         } else if (nearBottom && nearRight) {
-          img.style.cursor = 'nwse-resize';
+          img.style.cursor = "nwse-resize";
         } else if (nearTop) {
-          img.style.cursor = 'n-resize';
+          img.style.cursor = "n-resize";
         } else if (nearBottom) {
-          img.style.cursor = 's-resize';
+          img.style.cursor = "s-resize";
         } else if (nearLeft) {
-          img.style.cursor = 'w-resize';
+          img.style.cursor = "w-resize";
         } else if (nearRight) {
-          img.style.cursor = 'e-resize';
+          img.style.cursor = "e-resize";
         } else {
-          img.style.cursor = 'default';
+          img.style.cursor = "default";
         }
       };
 
@@ -411,8 +432,15 @@ export default {
         }
 
         animationFrameId = requestAnimationFrame(() => {
-          const { img, startX, startY, startWidth, startHeight, aspectRatio, edge } =
-            this.resizeData;
+          const {
+            img,
+            startX,
+            startY,
+            startWidth,
+            startHeight,
+            aspectRatio,
+            edge,
+          } = this.resizeData;
           const dx = e.clientX - startX;
           const dy = e.clientY - startY;
 
@@ -424,19 +452,19 @@ export default {
             newHeight = Math.max(50, startHeight + dy);
           } else {
             switch (edge) {
-              case 'bottom-right':
+              case "bottom-right":
                 newWidth = Math.max(50, startWidth + dx);
                 newHeight = newWidth / aspectRatio;
                 break;
-              case 'bottom-left':
+              case "bottom-left":
                 newWidth = Math.max(50, startWidth - dx);
                 newHeight = newWidth / aspectRatio;
                 break;
-              case 'top-right':
+              case "top-right":
                 newHeight = Math.max(50, startHeight - dy);
                 newWidth = newHeight * aspectRatio;
                 break;
-              case 'top-left':
+              case "top-left":
                 newHeight = Math.max(50, startHeight + dy);
                 newWidth = newHeight * aspectRatio;
                 break;
@@ -494,11 +522,13 @@ export default {
     },
 
     isSelected(name) {
-      return this.editor.isActive(name) ? '--p-primary-main' : '--p-text-primary';
+      return this.editor.isActive(name)
+        ? "--p-primary-main"
+        : "--p-text-primary";
     },
 
     clear() {
-      this.$emit("update:value", "")
+      this.$emit("update:value", "");
       this.editor.commands.clearContent();
     },
 
