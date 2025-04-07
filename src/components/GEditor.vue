@@ -113,6 +113,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link"
 import Gapcursor from '@tiptap/extension-gapcursor'
 import TextStyle from "@tiptap/extension-text-style"
+import Bold from "@tiptap/extension-bold"
 import { Color } from "@tiptap/extension-color";
 
 
@@ -193,6 +194,11 @@ export default {
             },
           },
         }),
+        Bold.configure({
+          HTMLAttributes: {
+            class: "g-editor-bold",
+          }
+        }),
         Color.configure({
           types: ['textStyle'],
         }),
@@ -204,7 +210,7 @@ export default {
           openOnClick: false,
           linkOnPaste: true,
           HTMLAttributes: {
-            class: "g-text--content-1-a",
+            class: "g-editor-link g-text--content-1-a",
           },
         }),
         ImageWithTools.configure({

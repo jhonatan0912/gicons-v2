@@ -6,7 +6,7 @@
 
 strong,
 strong.g-editor-bold {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 hr {
@@ -41,6 +41,9 @@ h3.g-editor-header {
 
 }
 
+a, a.g-editor-link {
+  color: -webkit-link;
+}
 
 .ProseMirror-selectednode {
   outline: 2px solid var(--p-primary-main);
