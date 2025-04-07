@@ -114,6 +114,8 @@ import Link from "@tiptap/extension-link"
 import Gapcursor from '@tiptap/extension-gapcursor'
 import TextStyle from "@tiptap/extension-text-style"
 import Bold from "@tiptap/extension-bold"
+import BulletList from "@tiptap/extension-bullet-list"
+import OrderedList from "@tiptap/extension-ordered-list"
 import { Color } from "@tiptap/extension-color";
 
 
@@ -205,6 +207,16 @@ export default {
         TextStyle,
         Underline,
         Gapcursor,
+        BulletList.configure({
+          HTMLAttributes: {
+            class: "g-editor-list",
+          },
+        }),
+        OrderedList.configure({
+          HTMLAttributes: {
+            class: "g-editor-list",
+          },
+        }),
         Link.configure({
           autolink: true,
           openOnClick: false,
