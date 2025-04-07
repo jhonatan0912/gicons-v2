@@ -474,7 +474,7 @@ export default {
 
     clear() {
       this.$emit("update:value", "")
-      this.editor.clearContent();
+      this.editor.commands.clearContent();
     },
 
     setContent(content) {
