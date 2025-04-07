@@ -7,7 +7,6 @@
 strong,
 strong.g-editor-bold {
   font-weight: bold !important;
-  text-decoration: underline;
 }
 
 hr {
@@ -44,6 +43,7 @@ h3.g-editor-header {
 
 a, a.g-editor-link {
   color: -webkit-link;
+  text-decoration: underline;
 }
 
 ul,ol, ul.g-editor-list,ol.g-editor-list {
