@@ -21,6 +21,8 @@ h1.g-editor-header {
   font-size: 24px;
   line-height: 28px;
   letter-spacing: 0%;
+  color: var(--p-text-primary);
+  margin-block: 0;
 }
 
 h2,
@@ -29,7 +31,8 @@ h2.g-editor-header {
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0%;
-
+  color: var(--p-text-primary);
+  margin-block: 0;
 }
 
 h3,
@@ -38,7 +41,8 @@ h3.g-editor-header {
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0px;
-
+  color: var(--p-text-primary);
+  margin-block: 0;
 }
 
 a, a.g-editor-link {
