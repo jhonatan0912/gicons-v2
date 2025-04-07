@@ -42,8 +42,12 @@
       </div>
     </div> -->
 
-    <GEditor :value="content" @update:value="content = $event" />
+    <GEditor ref="editor" :value="content" @update:value="content = $event" />
     <p>{{ content }}</p>
+
+    <button @click="$refs.editor.clear()">Destroy</button>
+
+    <button @click="onSetContent">Set new Content</button>
 
     <!-- <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
       <div
@@ -119,6 +123,7 @@ export default {
     init() {
       this.list = Object.keys(icons);
     },
+
     onFilter(e) {
       const value = e.target.value;
 
@@ -126,6 +131,7 @@ export default {
         icon.toLowerCase().includes(value.toLowerCase())
       );
     },
+
     oncopy(icon) {
       navigator.clipboard.writeText(`<GIcon name="${icon}" />`);
       const toast = document.getElementById("toast");
@@ -136,6 +142,10 @@ export default {
         toast.style.display = "none";
       }, 2000);
     },
+
+    onSetContent() {
+      this.$refs.editor.setContent('<div>Hola</div>');
+    }
   },
 };
 </script>

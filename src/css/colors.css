@@ -1,23 +1,23 @@
 .popover__color {
   width: max-content;
-  left: 5rem !important;
+  left: 4rem !important;
 }
 
-.popover__main.colors{
-  display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    padding: 8px 16px;
+.popover__main.colors {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 8px 16px;
 
-    span {
-      width: 24px;
-      height: 24px;
-      border-radius: 5px;
-      cursor: pointer;
-      border: 1px solid transparent;
+  span {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
 
-      &:hover {
-        border: 1px solid var(--p-gray-scale-200);
-      }
+    &:hover {
+      border: 1px solid var(--p-gray-scale-200);
     }
+  }
 }

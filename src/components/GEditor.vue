@@ -464,8 +464,16 @@ export default {
           cancelAnimationFrame(animationFrameId);
         }
       });
-    }
+    },
 
+    clear() {
+      this.$emit("update:value", "")
+      this.editor.clearContent();
+    },
+
+    setContent(content) {
+      this.editor.commands.setContent(content, false);
+    },
   },
 
   beforeDestroy() {
