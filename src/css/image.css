@@ -5,6 +5,7 @@
   height: auto;
   transition: width 0.05s linear, height 0.05s linear;
   touch-action: none;
+  padding-right: .1rem;
 }
 
 .resizable-image.resizing {

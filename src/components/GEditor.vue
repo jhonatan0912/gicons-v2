@@ -219,7 +219,6 @@ export default {
         }),
         TextStyle,
         Underline,
-        Gapcursor,
         BulletList.configure({
           HTMLAttributes: {
             class: "g-editor-list",
@@ -239,10 +238,12 @@ export default {
           },
         }),
         ImageWithTools.configure({
+          inline: true,
           HTMLAttributes: {
             class: "resizable-image",
           },
           resize: true,
+          allowBase64: true
         }),
         TextAlign.configure({
           types: ["heading", "paragraph"],
