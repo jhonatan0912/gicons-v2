@@ -8,8 +8,8 @@
         </div>
 
         <template #content="{ close }">
-          <div class="text__option" v-for="option in options" :key="option.value" @click="setHeading(option, close)">
-            <span v-html="option.htmlLabel"></span>
+          <div class="text__option" v-for="option in options" :key="option.value" @click="setHeading(option, close)"
+            v-html="option.htmlLabel">
           </div>
         </template>
       </Popover>
