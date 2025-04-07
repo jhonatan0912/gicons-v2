@@ -18,7 +18,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: "src/index.js",
+      entry: "src/index.ts",
       name: "GIconsV2",
       fileName: () => `index.js`,
     },
@@ -28,6 +28,7 @@ export default defineConfig({
         globals: {
           vue: "Vue",
         },
+        exports: "named",
       },
     },
     minify: "terser",

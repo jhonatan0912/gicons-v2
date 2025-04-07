@@ -1,20 +1,14 @@
 <template>
-  <component
-    @click.native="$emit('click', $event)"
-    v-bind="$attrs"
-    :is="icons[name]"
-    :class="[
-      size,
-      {
-        hover: hover,
-        active: active,
-        selected: selected,
-      },
-    ]"
-    :style="styleObject"
-  ></component>
+  <component @click.native="$emit('click', $event)" v-bind="$attrs" :is="icons[name]" :class="[
+    size,
+    {
+      hover: hover,
+      active: active,
+      selected: selected,
+    },
+  ]" :style="styleObject"></component>
 </template>
-<script>
+<script lang="ts">
 import icons from "../icons";
 
 export default {
@@ -31,7 +25,7 @@ export default {
   },
   data: () => ({ icons }),
   computed: {
-    styleObject() {
+    styleObject(): object {
       return {
         color: this.color.includes("--") ? `var(${this.color})` : this.color,
         transform: this.rotate ? `rotate(${this.rotate}deg)` : null,

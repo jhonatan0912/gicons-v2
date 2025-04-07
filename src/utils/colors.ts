@@ -1,4 +1,9 @@
-export const colors = [
+interface Color {
+  value: string;
+  title: string;
+}
+
+export const colors: Color[] = [
   { value: "#181818", title: "Text Primary" },
   { value: "#717171", title: "Text Secondary" },
   { value: "#949494", title: "Text Disabled" },

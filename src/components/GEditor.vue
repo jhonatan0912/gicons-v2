@@ -201,6 +201,10 @@ export default {
               class: "g-text--content-1-a",
             },
           },
+          bold: false,
+          gapcursor: false,
+          bulletList: false,
+          orderedList: false
         }),
         Bold.configure({
           HTMLAttributes: {

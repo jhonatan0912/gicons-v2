@@ -4,7 +4,7 @@ import "./styles.css";
 import icons from "./icons";
 
 const Plugin = {
-  install(Vue) {
+  install(Vue: any) {
     Vue.component("GIcon", GIcon);
     Vue.component("GEditor", GEditor);
   },
