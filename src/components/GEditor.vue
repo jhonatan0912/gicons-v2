@@ -278,7 +278,7 @@ export default {
       if (this.editor.isActive('link')) {
         this.editor.chain().focus().unsetLink().run()
       } else {
-        let url = window.prompt('Enter the URL')
+        let url = window.prompt('Ingresa la URL del enlace');
 
         if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
           url = 'https://' + url
