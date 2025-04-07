@@ -8,55 +8,26 @@
         </div>
 
         <template #content="{ close }">
-          <div
-            class="text__option"
-            :class="{ 'is-active': currentText.value === option.value }"
-            v-for="option in options"
-            :key="option.value"
-            @click="setHeading(option, close)"
-            v-html="option.htmlLabel"
-          ></div>
+          <div class="text__option" :class="{ 'is-active': currentText.value === option.value }"
+            v-for="option in options" :key="option.value" @click="setHeading(option, close)" v-html="option.htmlLabel">
+          </div>
         </template>
       </Popover>
 
       <div class="vertical-separator"></div>
 
       <!-- Text Formatting -->
-      <GIcon
-        name="Bold3"
-        title="Bold"
-        hover
-        :selected="editor.isActive('bold')"
-        :color="isSelected('bold')"
-        @click="editor.chain().focus().toggleBold().run()"
-      />
+      <GIcon name="Bold3" title="Bold" hover :selected="editor.isActive('bold')" :color="isSelected('bold')"
+        @click="editor.chain().focus().toggleBold().run()" />
 
-      <GIcon
-        name="Italic3"
-        title="Italic"
-        hover
-        :selected="editor.isActive('italic')"
-        :color="isSelected('italic')"
-        @click="editor.chain().focus().toggleItalic().run()"
-      />
+      <GIcon name="Italic3" title="Italic" hover :selected="editor.isActive('italic')" :color="isSelected('italic')"
+        @click="editor.chain().focus().toggleItalic().run()" />
 
-      <GIcon
-        name="Underline"
-        title="Underline"
-        hover
-        :selected="editor.isActive('underline')"
-        :color="isSelected('underline')"
-        @click="editor.chain().focus().toggleUnderline().run()"
-      />
+      <GIcon name="Underline" title="Underline" hover :selected="editor.isActive('underline')"
+        :color="isSelected('underline')" @click="editor.chain().focus().toggleUnderline().run()" />
 
-      <GIcon
-        name="Strikethrough"
-        title="Strikethrough"
-        hover
-        :selected="editor.isActive('strike')"
-        :color="isSelected('strike')"
-        @click="editor.chain().focus().toggleStrike().run()"
-      />
+      <GIcon name="Strikethrough" title="Strikethrough" hover :selected="editor.isActive('strike')"
+        :color="isSelected('strike')" @click="editor.chain().focus().toggleStrike().run()" />
 
       <div class="vertical-separator"></div>
       <Popover custom-class="popover__color">
@@ -64,13 +35,8 @@
 
         <template #content="{ close }">
           <div class="popover__main colors">
-            <span
-              v-for="(color, index) in colors"
-              :key="index"
-              :title="color.title"
-              :style="{ backgroundColor: color.value }"
-              @click="setColor(color.value, close)"
-            >
+            <span v-for="(color, index) in colors" :key="index" :title="color.title"
+              :style="{ backgroundColor: color.value }" @click="setColor(color.value, close)">
             </span>
           </div>
         </template>
@@ -79,80 +45,35 @@
       <div class="vertical-separator"></div>
 
       <!-- Text Alignment -->
-      <GIcon
-        name="TextAlignLeft"
-        title="TextAlignLeft"
-        hover
-        :selected="editor.isActive({ textAlign: 'left' })"
-        :color="
-          editor.isActive({ textAlign: 'left' })
+      <GIcon name="TextAlignLeft" title="TextAlignLeft" hover :selected="editor.isActive({ textAlign: 'left' })" :color="editor.isActive({ textAlign: 'left' })
+          ? '--p-primary-main'
+          : '--p-text-primary'
+        " @click="editor.chain().focus().setTextAlign('left').run()" />
+      <GIcon name="TextAlignCenter" title="TextAlignCenter" hover :selected="editor.isActive({ textAlign: 'center' })"
+        :color="editor.isActive({ textAlign: 'center' })
             ? '--p-primary-main'
             : '--p-text-primary'
-        "
-        @click="editor.chain().focus().setTextAlign('left').run()"
-      />
-      <GIcon
-        name="TextAlignCenter"
-        title="TextAlignCenter"
-        hover
-        :selected="editor.isActive({ textAlign: 'center' })"
-        :color="
-          editor.isActive({ textAlign: 'center' })
+          " @click="editor.chain().focus().setTextAlign('center').run()" />
+      <GIcon name="TextAlignRight" title="TextAlignRight" hover :selected="editor.isActive({ textAlign: 'right' })"
+        :color="editor.isActive({ textAlign: 'right' })
             ? '--p-primary-main'
             : '--p-text-primary'
-        "
-        @click="editor.chain().focus().setTextAlign('center').run()"
-      />
-      <GIcon
-        name="TextAlignRight"
-        title="TextAlignRight"
-        hover
-        :selected="editor.isActive({ textAlign: 'right' })"
-        :color="
-          editor.isActive({ textAlign: 'right' })
-            ? '--p-primary-main'
-            : '--p-text-primary'
-        "
-        @click="editor.chain().focus().setTextAlign('right').run()"
-      />
+          " @click="editor.chain().focus().setTextAlign('right').run()" />
 
       <div class="vertical-separator"></div>
 
       <!-- Lists -->
-      <GIcon
-        name="UnorderedList"
-        title="Bullet List"
-        hover
-        :selected="editor.isActive('bulletList')"
-        :color="isSelected('bulletList')"
-        @click="editor.chain().focus().toggleBulletList().run()"
-      />
-      <GIcon
-        name="NumberList"
-        title="Numbered List"
-        hover
-        :selected="editor.isActive('orderedList')"
-        :color="isSelected('orderedList')"
-        @click="editor.chain().focus().toggleOrderedList().run()"
-      />
+      <GIcon name="UnorderedList" title="Bullet List" hover :selected="editor.isActive('bulletList')"
+        :color="isSelected('bulletList')" @click="editor.chain().focus().toggleBulletList().run()" />
+      <GIcon name="NumberList" title="Numbered List" hover :selected="editor.isActive('orderedList')"
+        :color="isSelected('orderedList')" @click="editor.chain().focus().toggleOrderedList().run()" />
 
       <div class="vertical-separator"></div>
 
       <!-- Links & Media -->
-      <GIcon
-        name="Image2"
-        title="Insert Image"
-        hover
-        @click="openImageUpload"
-      />
-      <GIcon
-        name="Link"
-        title="Insert Link"
-        hover
-        :selected="editor.isActive('link')"
-        @click="setLink"
-        :color="isSelected('link')"
-      />
+      <GIcon name="Image2" title="Insert Image" hover @click="openImageUpload" />
+      <GIcon name="Link" title="Insert Link" hover :selected="editor.isActive('link')" @click="setLink"
+        :color="isSelected('link')" />
     </div>
 
     <editor-content :editor="editor" class="editor-content" />
@@ -161,13 +82,8 @@
     <div class="resize-handle" data-resize-handle="bottom-left"></div>
     <div class="resize-handle" data-resize-handle="top-right"></div>
     <div class="resize-handle" data-resize-handle="top-left"></div>
-    <input
-      type="file"
-      ref="fileInput"
-      accept="image/jpeg,image/webp"
-      style="display: none"
-      @change="handleImageUpload"
-    />
+    <input type="file" ref="fileInput" accept="image/jpeg,image/webp" style="display: none"
+      @change="handleImageUpload" />
   </div>
 </template>
 
@@ -309,13 +225,23 @@ export default {
           defaultAlignment: "left",
         }),
       ],
+      editorProps: {
+        attributes: {
+          style: "white-space: pre-wrap; word-wrap: break-word;"
+        },
+      },
       onUpdate: () => {
-        const html = this.editor.getHTML();
+        let html = this.editor.getHTML();
+
+        // Reemplazamos todos los espacios múltiples por &nbsp;
+        html = html.replace(/ {2,}/g, match => '&nbsp;'.repeat(match.length)); // Reemplazamos espacios con &nbsp; según su longitud
 
         this.$emit("update:value", html);
       },
       onBlur: () => {
-        this.$emit("update:value", this.editor.getHTML());
+        let html = this.editor.getHTML();
+        html = html.replace(/ {2,}/g, match => '&nbsp;'.repeat(match.length)); // Reemplazamos los espacios en blanco
+        this.$emit("update:value", html);
       },
     });
 
