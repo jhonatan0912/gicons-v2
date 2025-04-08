@@ -44,7 +44,6 @@ h3.g-editor-header {
 
 a, a.g-editor-link {
   color: var(--p-primary-main);
-  text-decoration: underline;
 }
 
 ul,ol, ul.g-editor-list,ol.g-editor-list {
