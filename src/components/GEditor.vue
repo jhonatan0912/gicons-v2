@@ -259,7 +259,7 @@ export default {
           },
           paragraph: {
             HTMLAttributes: {
-              class: "g-text--content-1-a",
+              class: "g-editor-paragraph g-text--content-1-a",
             },
           },
           bold: false,
