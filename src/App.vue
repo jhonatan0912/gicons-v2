@@ -44,6 +44,7 @@
 
     <GEditor ref="editor" :value="content" @update:value="content = $event" />
     <p>{{ content }}</p>
+    <p v-html="content"></p>
 
     <button @click="$refs.editor.clear()">Destroy</button>
 

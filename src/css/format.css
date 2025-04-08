@@ -48,6 +48,10 @@ a, a.g-editor-link {
 
 ul,ol, ul.g-editor-list,ol.g-editor-list {
   margin-left: 16px;
+
+  &>li{
+    padding: 4px 0 0 12px;
+  }
 }
 
 .ProseMirror-selectednode {
