@@ -189,6 +189,7 @@ import { colors } from "../utils/colors";
 import GIcon from "./GIcon.vue";
 import Popover from "./utils/Popover.vue";
 import { CustomImage } from "../utils/CustomImage";
+import { CustomPasteHandler } from "../utils/CustomPasteHandler"
 
 export default {
   components: { EditorContent, GIcon, Popover },
@@ -249,6 +250,7 @@ export default {
     this.editor = new Editor({
       content: this.value,
       extensions: [
+        CustomPasteHandler,
         CustomImage,
         StarterKit.configure({
           heading: {
