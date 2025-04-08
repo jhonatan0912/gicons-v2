@@ -58,6 +58,8 @@ ul,ol, ul.g-editor-list,ol.g-editor-list {
   outline: 2px solid var(--p-primary-main);
 }
 
-p.g-text--content-1-a{
+p.g-editor-paragraph.g-text--content-1-a{
   word-wrap: break-word;
+  line-height: 20px;
+  height: 20px;
 }
