@@ -3,14 +3,16 @@
     <div v-if="editor" class="editor-toolbar">
       <Popover>
         <div class="popover__main">
-          <span class="g-text--content-1-b" v-html="currentText.label"></span>
-          <GIcon name="ArrowGeorDown" size="xs" />
+          <span class="g-text--content-1-b paragraph" v-html="currentText.label"></span>
+          <GIcon name="ArrowGeorDown" size="xs" color="--p-primary-main"/>
         </div>
 
         <template #content="{ close }">
           <div
             class="text__option"
-            :class="{ 'is-active': currentText.value === option.value }"
+            :class="{
+              'is-active': currentText.value === option.value,
+            }"
             v-for="option in options"
             :key="option.value"
             @click="setHeading(option, close)"
@@ -189,7 +191,7 @@ import { colors } from "../utils/colors";
 import GIcon from "./GIcon.vue";
 import Popover from "./utils/Popover.vue";
 import { CustomImage } from "../utils/CustomImage";
-import { CustomPasteHandler } from "../utils/CustomPasteHandler"
+import { CustomPasteHandler } from "../utils/CustomPasteHandler";
 
 export default {
   components: { EditorContent, GIcon, Popover },
@@ -315,6 +317,39 @@ export default {
         attributes: {
           style: "white-space: pre-wrap; word-wrap: break-word;",
         },
+      },
+      onSelectionUpdate: (e) => {
+        if (this.editor.isActive("paragraph")) {
+          this.currentText = {
+            label: "Texto normal",
+            htmlLabel: `<p class="g-text--content-1-a">Texto normal</p>`,
+            value: "normal",
+          };
+        } else if (this.editor.isActive("heading", { level: 1 })) {
+          this.currentText = {
+            label: "Título 1",
+            htmlLabel: `<h1 class="g-tx--h5-b">Título 1</h1>`,
+            value: 1,
+          };
+        } else if (this.editor.isActive("heading", { level: 2 })) {
+          this.currentText = {
+            label: "Título 2",
+            htmlLabel: `<h2 class="g-tx--h6-b">Título 2</h2>`,
+            value: 2,
+          };
+        } else if (this.editor.isActive("heading", { level: 3 })) {
+          this.currentText = {
+            label: "Título 3",
+            htmlLabel: `<h3 class="g-tx--content-b">Título 3</h3>`,
+            value: 3,
+          };
+        } else {
+          this.currentText = {
+            label: "Texto normal",
+            htmlLabel: `<p class="g-text--content-1-a">Texto normal</p>`,
+            value: "normal",
+          };
+        }
       },
       onUpdate: () => {
         let html = this.editor.getHTML();
@@ -668,4 +703,8 @@ export default {
 .is-active {
   background-color: var(--p-secondary-low-shade);
 }
+
+.paragraph{
+    color: var(--p-primary-main);
+  }
 </style>
