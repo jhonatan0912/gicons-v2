@@ -3,8 +3,11 @@
     <div v-if="editor" class="editor-toolbar">
       <Popover>
         <div class="popover__main">
-          <span class="g-text--content-1-b paragraph" v-html="currentText.label"></span>
-          <GIcon name="ArrowGeorDown" size="xs" color="--p-primary-main"/>
+          <span
+            class="g-text--content-1-b paragraph"
+            v-html="currentText.label"
+          ></span>
+          <GIcon name="ArrowGeorDown" size="xs" color="--p-primary-main" />
         </div>
 
         <template #content="{ close }">
@@ -191,7 +194,6 @@ import { colors } from "../utils/colors";
 import GIcon from "./GIcon.vue";
 import Popover from "./utils/Popover.vue";
 import { CustomImage } from "../utils/CustomImage";
-import { CustomPasteHandler } from "../utils/CustomPasteHandler";
 
 export default {
   components: { EditorContent, GIcon, Popover },
@@ -252,7 +254,6 @@ export default {
     this.editor = new Editor({
       content: this.value,
       extensions: [
-        CustomPasteHandler,
         CustomImage,
         StarterKit.configure({
           heading: {
@@ -704,7 +705,7 @@ export default {
   background-color: var(--p-secondary-low-shade);
 }
 
-.paragraph{
-    color: var(--p-primary-main);
-  }
+.paragraph {
+  color: var(--p-primary-main);
+}
 </style>
