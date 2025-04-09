@@ -8,6 +8,7 @@ strong,
 strong.g-editor-bold {
   font-weight: bold !important;
   height: 20px;
+  display: inline-block;
 }
 
 hr {
