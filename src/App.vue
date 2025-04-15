@@ -1,14 +1,8 @@
 <template>
   <div style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem">
-    <!-- <div style="display: flex; gap: 0.5rem">
+    <div style="display: flex; gap: 0.5rem">
       <label for="icon"> Buscar Icono </label>
-      <input
-        id="icon"
-        style="max-width: 200px"
-        type="search"
-        placeholder="Search"
-        @input="onFilter"
-      />
+      <input id="icon" style="max-width: 200px" type="search" placeholder="Search" @input="onFilter" />
 
       <label>Tamaño</label>
       <select v-model="size">
@@ -40,19 +34,18 @@
         <label for="selected">Selected</label>
         <input id="selected" type="checkbox" v-model="selected" />
       </div>
-    </div> -->
+    </div>
 
-    <GEditor ref="editor" :value="content" @update:value="content = $event" />
+    <!-- <GEditor ref="editor" :value="content" @update:value="content = $event" />
     <p>{{ content }}</p>
-    <p v-html="content"></p>
+    <p v-html="content"></p> -->
 
     <button @click="$refs.editor.clear()">Destroy</button>
 
     <button @click="onSetContent">Set new Content</button>
 
-    <!-- <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
-      <div
-        style="
+    <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap">
+      <div style="
           cursor: pointer;
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
           padding: 1rem;
@@ -60,27 +53,14 @@
           flex-direction: column;
           gap: 0.5rem;
           align-items: center;
-        "
-        v-for="(icon, index) in list"
-        :key="index"
-        @click="oncopy(icon)"
-      >
-        <GIcon
-          :name="icon"
-          :size="size"
-          :hover="hover"
-          :active="active"
-          :selected="selected"
-          :color="color"
-          :hover-color="hoverColor"
-        />
+        " v-for="(icon, index) in list" :key="index" @click="oncopy(icon)">
+        <GIcon :name="icon" :size="size" :hover="hover" :active="active" :selected="selected" :color="color"
+          :hover-color="hoverColor" />
         {{ icon }}
       </div>
     </div>
 
-    <div
-      id="toast"
-      style="
+    <div id="toast" style="
         display: none;
         position: fixed;
         bottom: 20px;
@@ -90,8 +70,7 @@
         padding: 10px;
         border-radius: 5px;
         z-index: 999;
-      "
-    ></div> -->
+      "></div>
   </div>
 </template>
 
