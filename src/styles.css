@@ -135,6 +135,12 @@
       height: 24px;
       min-height: 24px;
     }
+    &.xl {
+      width: 32px;
+      min-width: 32px;
+      height: 32px;
+      min-height: 32px;
+    }
 
     :is(svg) {
       max-width: 100%;
