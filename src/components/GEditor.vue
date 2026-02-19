@@ -430,7 +430,7 @@ export default {
       }
 
       event.target.value = "";
-
+      console.log("PRUEB")
       this.$emit("on-upload-image", file);
     },
 
