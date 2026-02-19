@@ -226,7 +226,8 @@ export default {
             class: "resizable-image",
           },
           resize: true,
-          allowBase64: true,
+          // allowBase64: true,
+          allowBase64: false,
         }),
         TextAlign.configure({
           types: ["heading", "paragraph"],
@@ -238,6 +239,43 @@ export default {
         attributes: {
           style: "white-space: pre-wrap; word-wrap: break-word;",
         },
+        // 
+        handlePaste: (view, event) => {
+          const items = event.clipboardData?.items;
+          if (!items) return false;
+
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+
+            if (item.type.indexOf("image") !== -1) {
+              const file = item.getAsFile();
+
+              const validTypes = ["image/jpeg", "image/webp"];
+              if (!validTypes.includes(file.type)) {
+                this.$emit(
+                  "on-upload-error",
+                  "Por favor, cargue una imagen JPEG o WebP"
+                );
+                return true;
+              }
+
+              const MAX_SIZE = 500 * 1024;
+              if (file.size > MAX_SIZE) {
+                this.$emit(
+                  "on-upload-error",
+                  "Por favor, suba una imagen de menos de 500KB"
+                );
+                return true;
+              }
+              this.$emit("on-upload-image", file);
+
+              return true;
+            }
+          }
+
+          return false;
+        },
+        // 
       },
       onSelectionUpdate: (e) => {
         if (this.editor.isActive("paragraph")) {
@@ -327,52 +365,73 @@ export default {
       this.$refs.fileInput.click();
     },
 
+    // handleImageUpload(event) {
+    //   const file = event.target.files[0];
+    //   if (!file) return;
+
+    //   const validTypes = ["image/jpeg", "image/webp"];
+    //   if (!validTypes.includes(file.type)) {
+    //     this.$emit(
+    //       "on-upload-error",
+    //       "Por favor, cargue una imagen JPEG o WebP"
+    //     );
+    //     return;
+    //   }
+
+    //   const MAX_SIZE = 500 * 1024;
+    //   if (file.size > MAX_SIZE) {
+    //     this.$emit(
+    //       "on-upload-error",
+    //       "Por favor, suba una imagen de menos de 500KB"
+    //     );
+    //     return;
+    //   }
+
+    //   event.target.value = "";
+
+    //   this.isUploading = true;
+
+    //   const reader = new FileReader();
+    //   reader.onload = (e) => {
+    //     const base64 = e.target.result;
+    //     const img = new Image();
+    //     img.src = base64;
+
+    //     img.onload = () => {
+    //       this.editor
+    //         .chain()
+    //         .focus()
+    //         .setImage({
+    //           src: base64,
+    //           alt: file.name,
+    //           width: `${img.width}px`,
+    //         })
+    //         .run();
+    //       this.isUploading = false;
+    //     };
+    //   };
+    //   reader.readAsDataURL(file);
+    // },
+
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const validTypes = ["image/jpeg", "image/webp"];
       if (!validTypes.includes(file.type)) {
-        this.$emit(
-          "on-upload-error",
-          "Por favor, cargue una imagen JPEG o WebP"
-        );
+        this.$emit("on-upload-error", "Por favor, cargue una imagen JPEG o WebP");
         return;
       }
 
       const MAX_SIZE = 500 * 1024;
       if (file.size > MAX_SIZE) {
-        this.$emit(
-          "on-upload-error",
-          "Por favor, suba una imagen de menos de 500KB"
-        );
+        this.$emit("on-upload-error", "Por favor, suba una imagen de menos de 500KB");
         return;
       }
 
       event.target.value = "";
 
-      this.isUploading = true;
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const base64 = e.target.result;
-        const img = new Image();
-        img.src = base64;
-
-        img.onload = () => {
-          this.editor
-            .chain()
-            .focus()
-            .setImage({
-              src: base64,
-              alt: file.name,
-              width: `${img.width}px`,
-            })
-            .run();
-          this.isUploading = false;
-        };
-      };
-      reader.readAsDataURL(file);
+      this.$emit("on-upload-image", file);
     },
 
     setupResizeHandlers() {
